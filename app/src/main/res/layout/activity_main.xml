@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -23,10 +22,11 @@
         android:textColor="@color/color_white"
         android:textSize="20sp" />
 
+
     <GridView
         android:id="@+id/gridview"
         android:layout_width="match_parent"
-        android:layout_height="613dp"
+        android:layout_height="554dp"
         android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:clickable="false"
@@ -36,36 +36,52 @@
         android:numColumns="7"></GridView>
 
 
+    <!-- bottom bar -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/button_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:onClick="onClick_back"
-            android:fontFamily="@font/jalnanfont"
-            android:text="Back" />
-
-        <!-- to arrange button_nxt right -->
-
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1"/>
 
-        <Button
-            android:id="@+id/button_next"
+        <TextView
+            android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:onClick="onClick_next"
-            android:fontFamily="@font/jalnanfont"
-            android:text="Next" />
-    </LinearLayout>
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="onClick_setting"
+            android:text="Setting" />
 
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:onClick="onClick_main"
+            android:gravity="center"
+            android:text="Main"
+            android:background="@color/color_skyblue"/>
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:onClick="onClick_summary"
+            android:gravity="center"
+            android:text="Summary" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
 </LinearLayout>
+
 

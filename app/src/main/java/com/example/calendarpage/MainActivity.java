@@ -2,6 +2,7 @@ package com.example.calendarpage;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ViewGroup;
@@ -12,7 +13,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-//** import android.view.View.OnClickListener;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -21,10 +21,10 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.GridView;
+import android.view.MotionEvent;
 import android.widget.Toast;
 
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnTouchListener {
 
     private TextView topBar;
     private GridAdapter gridAdapter;
@@ -45,22 +45,84 @@ public class MainActivity extends AppCompatActivity {
 
     public calMonth calMonth;
 
-
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        topBar = (TextView)findViewById(R.id.top_bar);
-        gridView = (GridView)findViewById(R.id.gridview);
+        topBar = (TextView) findViewById(R.id.top_bar);
+        gridView = (GridView) findViewById(R.id.gridview);
 
         mCal = Calendar.getInstance();
 
         Date today_date = getNowDate();
 
-        calMonth= new calMonth(today_date.getYear()+1900,today_date.getMonth()+1);
+        calMonth = new calMonth(today_date.getYear() + 1900, today_date.getMonth() + 1);
 
         printCal(calMonth);
+
+        // ------- Ontouch Listener Define -> slide
+
+        gridView.setOnTouchListener(new View.OnTouchListener() {
+
+            float down_x;
+            float down_y;
+            float up_x;
+            float up_y;
+
+            @Override  // Find how can I override view.OnTouchListener separately.
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    // user touchDown routine
+                    down_x = event.getX();
+                    down_y = event.getY();
+                    return true;
+                } else if(event.getAction() == MotionEvent.ACTION_MOVE) {
+                    return true;
+                } else if(event.getAction() == MotionEvent.ACTION_UP) {
+                    // user touchUp routine
+                    up_x = event.getX();
+                    up_y = event.getY();
+
+                    if((up_x - down_x) < -200)
+                    {
+                        //printCal Next month
+                        nextMonth();
+
+                        return true;
+                    }
+
+                    else  if(up_y - down_y > 300)
+                    {
+                        // printCal updated
+                        printCal(calMonth);
+
+                        Toast.makeText(getApplicationContext(),"updated",Toast.LENGTH_LONG).show();
+
+                        return true;
+                    }
+
+                    if(up_x - down_x > 200)
+                    {
+                        //printCal prev month
+                        prevMonth();
+
+                        return true;
+                    }
+                    else if(up_y - down_y > 300)
+                    {
+                        // printCal re-flash
+                        printCal(calMonth);
+
+                        Toast.makeText(getApplicationContext(),"re-fleshed",Toast.LENGTH_LONG).show();
+
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     private void printCal(calMonth calMonth ){
@@ -91,12 +153,16 @@ public class MainActivity extends AppCompatActivity {
         setCalendarDate(mCal.get(Calendar.MONTH) + 1);
     }
 
+    // ----- get today's date information
+
     private Date getNowDate(){
         long now = System.currentTimeMillis();
         final Date today_Date = new Date(now);
 
         return today_Date;
     }
+
+    // ------ Day Num -> sun : 0 , mon : 1 ....
 
     private int getDayNum(String date){
         int intDate=0;
@@ -195,7 +261,9 @@ public class MainActivity extends AppCompatActivity {
         TextView tvItemGridView;
     }
 
-    public void onClick_next(View v){
+    // ------ move to next or prev month
+
+    public void nextMonth(){
         if(calMonth.month ==12){
             calMonth.month =1;
             calMonth.year++;
@@ -206,17 +274,54 @@ public class MainActivity extends AppCompatActivity {
         printCal(calMonth);
     }
 
-    public void onClick_back(View v){
-        if(calMonth.month ==1){
-            calMonth.month =12;
+    public  void prevMonth() {
+        if (calMonth.month == 1) {
+            calMonth.month = 12;
             calMonth.year--;
-        }
-        else{
+        } else {
             calMonth.month--;
         }
         printCal(calMonth);
     }
-}
 
-/*
- * */
+    // ------- method for navigating
+
+    public void onClick_setting(View v){
+        Intent intent_settingAct = new Intent(getApplicationContext(), SettingActivity.class);
+
+        // needs today's information
+
+        Date today_date = getNowDate();
+
+        intent_settingAct.putExtra("year", today_date.getYear()+1900);
+        intent_settingAct.putExtra("month", today_date.getMonth());
+        intent_settingAct.putExtra("date",today_date.getDate());
+
+        startActivity(intent_settingAct);
+    }
+
+    public void onClick_main(View v){
+        Intent intent_mainAct = new Intent(getApplicationContext(), MainActivity.class);
+
+        startActivity(intent_mainAct);
+    }
+
+    public void onClick_summary(View v){
+        Intent intent_summaryAct = new Intent(getApplicationContext(), SummaryActivity.class);
+
+        intent_summaryAct.putExtra("year", calMonth.year);
+        intent_summaryAct.putExtra("month", calMonth.month);
+
+        startActivity(intent_summaryAct);
+    }
+
+    // ------- method for onTouchListener
+
+    public boolean onTouch(View v, MotionEvent event) {
+        switch(event.getAction()) {
+        }
+        return true;
+    }
+
+
+}
