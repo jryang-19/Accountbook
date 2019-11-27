@@ -19,6 +19,9 @@
         <activity android:name=".CategoriesActivity">
 
         </activity>
+        <activity android:name=".CountActivity">
+
+        </activity>
     </application>
 
 </manifest>

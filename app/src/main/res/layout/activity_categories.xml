@@ -32,10 +32,12 @@
 
                 >
                 <ImageView
+                    android:id="@+id/ImageView_dinner"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:src="@drawable/food"
-                    android:layout_margin="10dp"/>
+                    android:layout_margin="10dp"
+                    android:clickable="true"/>
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
