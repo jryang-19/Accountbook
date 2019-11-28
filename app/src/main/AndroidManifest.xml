@@ -9,9 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SummaryActivity" />
-        <activity android:name=".SubActivity" />
-        <activity android:name=".SettingActivity" />
+        <activity android:name=".CountActivity"></activity>
+        <activity android:name=".CategoriesActivity"></activity>
+        <activity android:name=".SummaryActivity" ></activity>
+        <activity android:name=".SubActivity" ></activity>
+        <activity android:name=".SettingActivity" ></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
