@@ -22,7 +22,7 @@ public class CategoriesActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View v){
         int resourceId = 0;
-        switch (v.getId()) {
+        switch ((v.getId())) {
             case R.id.ImageView_dinner:
                 resourceId = R.drawable.food;
                 break;

@@ -14,8 +14,8 @@ public class SubActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+        setContentView(R.layout.activity_sub);
+        Intent intent_sub = getIntent();
 
         ImageView_add =  findViewById(R.id.ImageView_add);
         ImageView_add.setClickable(true);

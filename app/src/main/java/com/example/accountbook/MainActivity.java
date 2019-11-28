@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         }
     }
 
+
+
     public calMonth calMonth;
 
     @SuppressLint("ClickableViewAccessibility")
@@ -50,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         topBar = (TextView) findViewById(R.id.top_bar);
         gridView = (GridView) findViewById(R.id.gridview);
 
@@ -243,7 +244,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
             holder.tvItemGridView.setOnClickListener(new Button.OnClickListener() {
                 public void onClick(View v) {
-                    Intent intent_subAct = new Intent(getApplicationContext(), SubActivity.class);
+                    Intent intent_subAct = new Intent(MainActivity.this, SubActivity.class);
 
                     intent_subAct.putExtra("year", calMonth.year);
                     intent_subAct.putExtra("month", calMonth.month);
@@ -291,6 +292,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
         // needs today's information
 
+
         Date today_date = getNowDate();
 
         intent_settingAct.putExtra("year", today_date.getYear()+1900);
@@ -311,7 +313,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
         intent_summaryAct.putExtra("year", calMonth.year);
         intent_summaryAct.putExtra("month", calMonth.month);
-
+        //intent_summaryAct.putExtra("date",today_date.getDate());
         startActivity(intent_summaryAct);
     }
 

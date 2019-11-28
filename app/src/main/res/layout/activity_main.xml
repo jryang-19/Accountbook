@@ -56,6 +56,7 @@
             android:onClick="onClick_setting"
             android:text="Setting" />
 
+
         <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
