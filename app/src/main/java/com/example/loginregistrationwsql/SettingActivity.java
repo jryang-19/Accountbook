@@ -140,7 +140,7 @@ public class SettingActivity extends AppCompatActivity {
                     builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            boolean isUpdated =db.updateData(name,expenseAmtInput.getText().toString());
+                            boolean isUpdated =db.updateLimit(name,expenseLimit,dateFrom,dateTo);
                             if(isUpdated==true){
                                 showToast(String.valueOf(expenseLimit));
                                 Intent i = new Intent(SettingActivity.this,WelcomeActivity.class);
