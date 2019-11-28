@@ -95,10 +95,10 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
                     else  if(up_y - down_y > 300)
                     {
-                        // printCal updated
+                        // printCal re-flash
                         printCal(calMonth);
 
-                        Toast.makeText(getApplicationContext(),"updated",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"re-fleshed",Toast.LENGTH_LONG).show();
 
                         return true;
                     }
