@@ -46,6 +46,7 @@ public class SettingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+        Intent intent_setting = getIntent();
         Bundle b =getIntent().getExtras(); //Important to have this in every page so that u can access ur data, it act as like a session storage
         name = b.getString("name");   //Important to have this in every page so that u can access ur data, it act as like a session storage
         name123=(TextView)findViewById(R.id.name123);
@@ -143,7 +144,7 @@ public class SettingActivity extends AppCompatActivity {
                             boolean isUpdated =db.updateLimit(name,expenseLimit,dateFrom,dateTo);
                             if(isUpdated==true){
                                 showToast(String.valueOf(expenseLimit));
-                                Intent i = new Intent(SettingActivity.this,WelcomeActivity.class);
+                                Intent i = new Intent(SettingActivity.this,SettingActivity.class);
                                 i.putExtra("name",name);  //Important to have this in every page so that u can access ur data, it act as like a session storage
                                 startActivity(i);
                             }else{
@@ -180,5 +181,18 @@ public class SettingActivity extends AppCompatActivity {
         Toast.makeText(SettingActivity.this, text, Toast.LENGTH_SHORT).show();
 
     }
+    public void onClick_setting(View v){
+        Intent intent_settingAct = new Intent(getApplicationContext(), SettingActivity.class);
+        startActivity(intent_settingAct);
+    }
 
+    public void onClick_calendar(View v){
+        Intent intent_calendarAct = new Intent(getApplicationContext(), CalendarActivity.class);
+        startActivity(intent_calendarAct);
+    }
+
+    public void onClick_summary(View v){
+        Intent intent_summaryAct = new Intent(getApplicationContext(), SummaryActivity.class);
+        startActivity(intent_summaryAct);
+    }
 }

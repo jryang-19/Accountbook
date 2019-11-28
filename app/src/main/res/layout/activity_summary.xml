@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/pivot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="SUMMARY"
+        android:textColor="#F8E0E0"
+        android:textSize="30dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="20dp"
+        android:orientation="vertical"
+        android:layout_below="@+id/pivot"
+        android:layout_alignParentLeft="true"
+        >
+        <org.eazegraph.lib.charts.PieChart
+            android:id="@+id/tab1_chart_1"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:egEnableScroll="true"
+            app:egFixedBarWidth="true"
+            app:egLegendHeight="40dp"
+            app:egShowDecimal="true"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="20dp"
+        android:orientation="vertical"
+        android:layout_below="@+id/pivot"
+        android:layout_alignParentRight="true"
+        >
+        <org.eazegraph.lib.charts.PieChart
+            android:id="@+id/tab1_chart_2"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:egEnableScroll="true"
+            app:egFixedBarWidth="true"
+            app:egLegendHeight="40dp"
+            app:egShowDecimal="true"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="250dp"
+        android:orientation="vertical"
+        android:layout_below="@+id/pivot"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        >
+        <org.eazegraph.lib.charts.BarChart
+            android:id="@+id/tab1_chart_3"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginBottom="100dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            app:egEnableScroll="true"
+            app:egFixedBarWidth="true"
+            app:egLegendHeight="40dp"
+            app:egShowDecimal="true"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="onClick_setting"
+            android:text="Setting" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="onClick_calendar"
+            android:text="Main" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="onClick_summary"
+            android:background="@color/color_skyblue"
+            android:text="Summary" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

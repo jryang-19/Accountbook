@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
    DatabaseHelper db;
@@ -67,4 +70,23 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    public void onClick_setting(View v){
+        Intent intent_settingAct = new Intent(getApplicationContext(), SettingActivity.class);
+
+        startActivity(intent_settingAct);
+    }
+
+    public void onClick_calendar(View v){
+        Intent intent_calendarAct = new Intent(getApplicationContext(), CalendarActivity.class);
+
+        startActivity(intent_calendarAct);
+    }
+
+    public void onClick_summary(View v){
+        Intent intent_summaryAct = new Intent(getApplicationContext(), SummaryActivity.class);
+
+        startActivity(intent_summaryAct);
+    }
+
 }
