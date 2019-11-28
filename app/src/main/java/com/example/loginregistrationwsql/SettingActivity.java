@@ -31,16 +31,14 @@ public class SettingActivity extends AppCompatActivity {
     private TextView mDisplayDateTo;
     private DatePickerDialog.OnDateSetListener mDateSetListner2;
     String dateTo;
-
+    Button goBack;
     Button setLimit;
     int expenseLimit;
     EditText expenseAmtInput;
     TextView tvDateInput;
     TextView tvDate2Input;
-    TextView name123;
     AlertDialog dialog;
     AlertDialog.Builder builder;
-    String result="";
     String name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +46,6 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
         Bundle b =getIntent().getExtras(); //Important to have this in every page so that u can access ur data, it act as like a session storage
         name = b.getString("name");   //Important to have this in every page so that u can access ur data, it act as like a session storage
-        name123=(TextView)findViewById(R.id.name123);
-        name123.setText("Name: " +name);
         db = new DatabaseHelper(this);
         mDisplayDate = (TextView) findViewById(R.id.tvDate);
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
@@ -112,6 +108,17 @@ public class SettingActivity extends AppCompatActivity {
 
         tvDateInput = (TextView) findViewById(R.id.tvDate);
         tvDate2Input = (TextView) findViewById(R.id.tvDate2);
+
+        //Alert dialog function for exceeded expense limit
+        goBack = (Button) findViewById(R.id.goBack);
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SettingActivity.this,WelcomeActivity.class);
+                i.putExtra("name",name);  //Important to have this in every page so that u can access ur data, it act as like a session storage
+                startActivity(i);
+            }
+        });
 
         //When Set limit Button is pressed
         expenseAmtInput = (EditText) findViewById(R.id.expenseAmt);

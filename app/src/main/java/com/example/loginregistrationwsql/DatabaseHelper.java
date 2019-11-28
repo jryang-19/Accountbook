@@ -86,7 +86,22 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     }
 
-    //updateDb
+    //Return user expense
+    public int retrieveExpense(String userEmail){
+        String stringExpense;
+        int expense=0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from user where email ='"+ userEmail + "'", null);
+        if(cursor.moveToFirst()){
+            stringExpense = cursor.getString(2);
+            expense = Integer.valueOf(stringExpense);
+            return expense;
+        }
+        return expense;
+
+    }
+
+    //update limit
     public boolean updateLimit(String email, int limit,String dateFrom,String dateTo){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -97,6 +112,14 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return true;
     }
 
+    //set limit to zero
+    public boolean setLimitToZero(String email, int limit){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("setLimit",limit);
+        db.update(TABLE_NAME, contentValues, "email = ?",new String[]{ email });
+        return true;
+    }
 
 
 
