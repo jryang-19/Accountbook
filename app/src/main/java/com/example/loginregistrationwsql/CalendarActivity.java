@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ViewGroup;
 import java.text.SimpleDateFormat;
 import java.time.YearMonth;
@@ -60,13 +61,13 @@ public class CalendarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calendar);
         name123=(TextView)findViewById(R.id.name123);
 
-        Bundle b =getIntent().getExtras(); //Important to have this in every page so that u can access ur data, it act as like a session storage
-        name = b.getString("name");   //Important to have this in every page so that u can access ur data, it act as like a session storage
+
+        // JR >> there are Error in Using Bundle
+
+        //Bundle b =getIntent().getExtras(); //Important to have this in every page so that u can access ur data, it act as like a session storage
+        //name = b.getString("name");   //Important to have this in every page so that u can access ur data, it act as like a session storage
+
         name123.setText("Hello " +name);
-
-
-        //super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_calendar);
 
         topBar = (TextView) findViewById(R.id.top_bar);
         gridView = (GridView) findViewById(R.id.gridview);
@@ -315,30 +316,18 @@ public class CalendarActivity extends AppCompatActivity {
         intent_settingAct.putExtra("date",today_date.getDate());
 
         startActivity(intent_settingAct);
+        finish();
     }
 
     public void onClick_calendar(View v){
         Intent intent_calendarAct = new Intent(getApplicationContext(), CalendarActivity.class);
 
         startActivity(intent_calendarAct);
+        finish();
     }
 
     public void onClick_summary(View v){
         Intent intent_summaryAct = new Intent(getApplicationContext(), SummaryActivity.class);
-
-        //intent_summaryAct.putExtra("year", calMonth.year);
-        //intent_summaryAct.putExtra("month", calMonth.month);
-
         startActivity(intent_summaryAct);
     }
-
-    // ------- method for onTouchListener
-
-    public boolean onTouch(View v, MotionEvent event) {
-        switch(event.getAction()) {
-        }
-        return true;
-    }
-
-
 }

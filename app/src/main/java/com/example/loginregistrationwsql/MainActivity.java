@@ -28,11 +28,22 @@ public class MainActivity extends AppCompatActivity {
         e3 = (EditText)findViewById(R.id.cpass);
         b1 = (Button)findViewById(R.id.register);
         b2 = (Button)findViewById(R.id.login);
+
+
+        //////////
+
+        Intent i = new Intent(MainActivity.this, Login.class);
+        startActivity(i);
+        finish();
+
+        ////// for testing JR
+        /*
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, Login.class);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -64,29 +75,10 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Password do not match", Toast.LENGTH_SHORT).show();
 
                 }
-
             }
         });
 
 
+         */
     }
-
-    public void onClick_setting(View v){
-        Intent intent_settingAct = new Intent(getApplicationContext(), SettingActivity.class);
-
-        startActivity(intent_settingAct);
-    }
-
-    public void onClick_calendar(View v){
-        Intent intent_calendarAct = new Intent(getApplicationContext(), CalendarActivity.class);
-
-        startActivity(intent_calendarAct);
-    }
-
-    public void onClick_summary(View v){
-        Intent intent_summaryAct = new Intent(getApplicationContext(), SummaryActivity.class);
-
-        startActivity(intent_summaryAct);
-    }
-
 }

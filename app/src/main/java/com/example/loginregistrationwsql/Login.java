@@ -33,15 +33,26 @@ public class Login extends AppCompatActivity {
                 String email = e1.getText().toString();
                 String password = e2.getText().toString();
                 Boolean Chkemailpass = db.emailPassword(email,password);
+
+                /*
                 if(Chkemailpass ==true){
                     Toast.makeText(getApplicationContext(), "Successfully Logged in", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(Login.this,CalendarActivity.class);
                     i.putExtra("name",email);
                     startActivity(i);
+                    finish();
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "Wrong Email or Password", Toast.LENGTH_SHORT).show();
-                }
+                }*/
+
+                ////////// for testing JR
+                Toast.makeText(getApplicationContext(), "Successfully Logged in", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(Login.this,CalendarActivity.class);
+                i.putExtra("name",email);
+                startActivity(i);
+                finish();
+                ////////////
 
             }
         });

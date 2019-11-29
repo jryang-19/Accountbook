@@ -4,12 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.graphics.Color;
 
 import org.eazegraph.lib.charts.BarChart;
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.BarModel;
 import org.eazegraph.lib.models.PieModel;
+
+import java.util.Date;
 
 public class SummaryActivity extends AppCompatActivity {
 
@@ -58,18 +61,58 @@ public class SummaryActivity extends AppCompatActivity {
 
         chart3.startAnimation();
     }
+
+    private Date getNowDate(){
+        long now = System.currentTimeMillis();
+        final Date today_Date = new Date(now);
+
+        return today_Date;
+    }
+
     public void onClick_setting(View v){
         Intent intent_settingAct = new Intent(getApplicationContext(), SettingActivity.class);
-        startActivity(intent_settingAct);
+
+
+        //// JR :: setting needs date data
+
+        Date today_date = getNowDate();
+
+        intent_settingAct.putExtra("year", today_date.getYear()+1900);
+        intent_settingAct.putExtra("month", today_date.getMonth());
+        intent_settingAct.putExtra("date",today_date.getDate());
+
+        try{
+            startActivity(intent_settingAct);
+        }catch (Exception e){
+            Log.d("ERROR", e.toString());
+        }
+        finally {
+            finish();
+        }
     }
 
     public void onClick_calendar(View v){
         Intent intent_calendarAct = new Intent(getApplicationContext(), CalendarActivity.class);
-        startActivity(intent_calendarAct);
+
+        try{
+            startActivity(intent_calendarAct);
+        }catch (Exception e){
+            Log.e("ERROR", e.toString());
+        }
+        finally {
+            finish();
+        }
     }
 
     public void onClick_summary(View v){
         Intent intent_summaryAct = new Intent(getApplicationContext(), SummaryActivity.class);
-        startActivity(intent_summaryAct);
+        try{
+            startActivity(intent_summaryAct );
+        }catch (Exception e){
+            Log.e("ERROR", e.toString());
+        }
+        finally {
+            finish();
+        }
     }
 }

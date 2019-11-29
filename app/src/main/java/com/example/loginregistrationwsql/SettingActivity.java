@@ -20,8 +20,6 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 public class SettingActivity extends AppCompatActivity {
-
-
     DatabaseHelper db;
     private static final String TAG = "SettingActivity";
     private TextView mDisplayDate;
@@ -47,8 +45,11 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         Intent intent_setting = getIntent();
-        Bundle b =getIntent().getExtras(); //Important to have this in every page so that u can access ur data, it act as like a session storage
-        name = b.getString("name");   //Important to have this in every page so that u can access ur data, it act as like a session storage
+
+        //Bundle b;
+        //b =getIntent().getExtras(); //Important to have this in every page so that u can access ur data, it act as like a session storage
+        //name = b.getString("name");   //Important to have this in every page so that u can access ur data, it act as like a session storage
+
         name123=(TextView)findViewById(R.id.name123);
         name123.setText("Name: " +name);
         db = new DatabaseHelper(this);
@@ -165,16 +166,9 @@ public class SettingActivity extends AppCompatActivity {
 
                     dialog = builder.create();
                     dialog.show();
-
                 }
-
-
-
             }
         });
-
-
-
     }
 
     private void showToast(String text) {
@@ -183,16 +177,38 @@ public class SettingActivity extends AppCompatActivity {
     }
     public void onClick_setting(View v){
         Intent intent_settingAct = new Intent(getApplicationContext(), SettingActivity.class);
-        startActivity(intent_settingAct);
+        try{
+            startActivity(intent_settingAct);
+        }catch (Exception e){
+            Log.d("ERROR", e.toString());
+        }
+        finally {
+            finish();
+        }
     }
 
     public void onClick_calendar(View v){
         Intent intent_calendarAct = new Intent(getApplicationContext(), CalendarActivity.class);
-        startActivity(intent_calendarAct);
+        try{
+            startActivity(intent_calendarAct);
+        }catch (Exception e){
+            Log.d("ERROR", e.toString());
+        }
+        finally {
+            finish();
+        }
     }
 
     public void onClick_summary(View v){
         Intent intent_summaryAct = new Intent(getApplicationContext(), SummaryActivity.class);
-        startActivity(intent_summaryAct);
+
+        try{
+            startActivity(intent_summaryAct);
+        }catch (Exception e){
+            Log.d("ERROR", e.toString());
+        }
+        finally {
+            finish();
+        }
     }
 }
