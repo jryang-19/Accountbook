@@ -72,6 +72,7 @@ public class SummaryActivity extends AppCompatActivity {
     public void onClick_setting(View v){
         Intent intent_settingAct = new Intent(getApplicationContext(), SettingActivity.class);
 
+        Bundle b =getIntent().getExtras(); //Important to have this in every page so that u can access ur data, it act as like a session storage
 
         //// JR :: setting needs date data
 
