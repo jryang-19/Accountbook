@@ -37,6 +37,7 @@ public class CategoriesActivity extends AppCompatActivity implements View.OnClic
             Intent intent2 = new Intent(CategoriesActivity.this,CountActivity.class);
             intent2.putExtra("resourceId",resourceId);
             startActivity(intent2);
+            finish();
         }
     }
 

@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         gridView = (GridView) findViewById(R.id.gridview);
 
         mCal = Calendar.getInstance();
-
+        Intent gotomain = getIntent();
         Date today_date = getNowDate();
 
         calMonth = new calMonth(today_date.getYear() + 1900, today_date.getMonth() + 1);
@@ -251,6 +251,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                     intent_subAct.putExtra("date", Integer.parseInt(getItem(position)));
 
                     startActivity(intent_subAct);
+                    finish();
                 }
             });
 
@@ -300,21 +301,27 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         intent_settingAct.putExtra("date",today_date.getDate());
 
         startActivity(intent_settingAct);
+        finish();
+
     }
 
     public void onClick_main(View v){
         Intent intent_mainAct = new Intent(getApplicationContext(), MainActivity.class);
 
         startActivity(intent_mainAct);
+        finish();
     }
 
     public void onClick_summary(View v){
         Intent intent_summaryAct = new Intent(getApplicationContext(), SummaryActivity.class);
 
+        Date today_date = getNowDate();
+
         intent_summaryAct.putExtra("year", calMonth.year);
         intent_summaryAct.putExtra("month", calMonth.month);
-        //intent_summaryAct.putExtra("date",today_date.getDate());
+        intent_summaryAct.putExtra("date", today_date.getDate());
         startActivity(intent_summaryAct);
+        finish();
     }
 
     // ------- method for onTouchListener

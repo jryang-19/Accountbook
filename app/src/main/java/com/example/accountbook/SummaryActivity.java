@@ -16,12 +16,24 @@ public class SummaryActivity extends AppCompatActivity {
     PieChart chart1;
     PieChart chart2;
     BarChart chart3;
+    DatabaseHelper2 db;
 
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary);
+        Intent intent_summaryAct = getIntent();
+        Bundle bundle = intent_summaryAct.getExtras();
+        int year = bundle.getInt("year");
+        int month = bundle.getInt("month");
+        int date = bundle.getInt("date");
+        String s_year = ""+year;
+        String s_month = ""+month;
+        String s_date = ""+date;
+
+        db = new DatabaseHelper2(this);
+
 
         chart1 = (PieChart) findViewById(R.id.tab1_chart_1);
         chart2 = (PieChart) findViewById(R.id.tab1_chart_2);
@@ -51,25 +63,28 @@ public class SummaryActivity extends AppCompatActivity {
 //chart3.addBar(new BarModel("12", 10f, 0xFF56B7F1));
 //chart3.addBar(new BarModel("13", 10f, 0xFF56B7F1));
 //chart3.addBar(new BarModel("14", 10f, 0xFF56B7F1));
-        chart3.addBar(new BarModel("15", 20f, 0xFF56B7F1));
-        chart3.addBar(new BarModel("16", 10f, 0xFF56B7F1));
-        chart3.addBar(new BarModel("17", 10f, 0xFF56B7F1));
+        chart3.addBar(new BarModel(s_year, db.month_expanse(2019, 11), 0xFF56B7F1));
+        chart3.addBar(new BarModel(s_month, 10, 0xFF56B7F1));
+        chart3.addBar(new BarModel(s_date, 10, 0xFF56B7F1));
 
         chart3.startAnimation();
     }
     public void onClick_setting(View v){
         Intent intent_settingAct = new Intent(getApplicationContext(), SettingActivity.class);
         startActivity(intent_settingAct);
+        finish();
     }
 
     public void onClick_main(View v){
         Intent intent_mainAct = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent_mainAct);
+        finish();
     }
 
     public void onClick_summary(View v){
         Intent intent_summaryAct = new Intent(getApplicationContext(), SummaryActivity.class);
         startActivity(intent_summaryAct);
+        finish();
     }
 }
 

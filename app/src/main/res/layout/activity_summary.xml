@@ -36,6 +36,7 @@
             app:egShowDecimal="true"
             />
 
+
     </LinearLayout>
 
     <LinearLayout

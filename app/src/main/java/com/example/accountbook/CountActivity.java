@@ -8,7 +8,9 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class CountActivity extends AppCompatActivity {
-Button button_expanse;
+    Button button_expanse;
+    DatabaseHelper2 db = new DatabaseHelper2(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,8 +27,10 @@ Button button_expanse;
         button_expanse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent gotosub = new Intent(CountActivity.this,SubActivity.class);
-                startActivity(gotosub);
+                db.insert(2019, 11, 30, 3000, 0);
+                Intent gotomain = new Intent(CountActivity.this,MainActivity.class);
+                startActivity(gotomain);
+                finish();
             }
         });
     }

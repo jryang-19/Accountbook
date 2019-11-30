@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 
 public class DatabaseHelper2 extends SQLiteOpenHelper{
 
-    public static final String TABLE_NAME = "day";
+    public static final String TABLE_NAME = "expanse";
 
     public DatabaseHelper2(@Nullable Context context) {
         super(context, "BC.db", null, 1);
@@ -18,7 +18,7 @@ public class DatabaseHelper2 extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("Create table day(year integer primary key, month integer, date integer , daily_expense integer, categories integer)");
+        db.execSQL("Create table day(year integer primary key, month integer, day integer , price integer, categories integer)");
     }
 
     @Override
@@ -27,53 +27,66 @@ public class DatabaseHelper2 extends SQLiteOpenHelper{
         onCreate(db);
     }
     //inserting in database
-    public boolean insert (int year,int month,int date,int daily_expense, int categories){
+    public boolean insert (int year, int month, int day, int price, int categories){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("year",year);
+
+        contentValues.put("year", year);
         contentValues.put("month",month);
-        contentValues.put("date",date);
-        contentValues.put("daily_expense",daily_expense);
-        contentValues.put("categories",categories);
+        contentValues.put("day", day);
+        contentValues.put("price", price);
+        contentValues.put("categories", categories);
 
         long ins = db.insert("",null,contentValues);
         if (ins==1) return false;
         else return true;
 
     }
-    //checking if email exists
 
-
-    //Checking the email and password of login
-
-
-    //Return day- year
-    public String displayPW(int year){
-        String pw="";
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from day where year ='"+ year + "'", null);
-        if(cursor.moveToFirst()){
-            pw = cursor.getString(1);
-            return pw;
+    public int[] day_expanse_category(int year, int month, int day){
+        int[] category = new int[3];
+        for(int i=0; i<3; i++) {
+            category[i] = 0;
         }
-        return pw;
 
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from expanse where day = '"+ day + "'", new String[]{"%" + day + "%"});
+        while(cursor.moveToNext()){
+            if(cursor.getInt(1) == year && cursor.getInt(2) == month){
+                category[cursor.getInt(3)] += cursor.getInt(4);
+            }
+        }
+        return category;
     }
 
-    //Return user limit
-    public String displayLimit(String userEmail){
-        String limit="";
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from day where email ='"+ userEmail + "'", null);
-        if(cursor.moveToFirst()){
-            limit = cursor.getString(3);
-            return limit;
+    public int[] month_expanse_category(int year, int month){
+        int[] category = new int[3];
+        for(int i=0; i<3; i++) {
+            category[i] = 0;
         }
-        return limit;
 
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from expanse where month = '"+ month + "'", new String[]{"%" + month + "%"});
+        while(cursor.moveToNext()){
+            if(cursor.getInt(1) == year){
+                category[cursor.getInt(3)] += cursor.getInt(4);
+            }
+        }
+        return category;
     }
 
-    //updateDb
+    public int month_expanse(int year, int month){
+        int res = 0;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from expanse where "+ month + " = ?", new String[]{"%" + month + "%"});
+        while(cursor.moveToNext()){
+            if(cursor.getInt(1) == year){
+                res += cursor.getInt(4);
+            }
+        }
+        return res;
+    }
 
 
 }

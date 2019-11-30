@@ -18,7 +18,7 @@ public class SubActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub);
         Intent intent_sub = getIntent();
-        Intent button_expanse = getIntent();
+
         ////////////////////////////////////////
         sub_day = findViewById(R.id.sub_day);
         Bundle bundle = intent_sub.getExtras();
@@ -33,7 +33,10 @@ public class SubActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SubActivity .this , CategoriesActivity.class);
+
+                //intent.putExtra("year", year);
                 startActivity(intent);
+                finish();
             }
         });
     }
