@@ -41,7 +41,7 @@ public class CountActivity extends AppCompatActivity {
         category = bun.getInt("category");
         name = bun.getString("name");
 
-        int resourceId = getIntent().getIntExtra("resourceId",0);
+        final int resourceId = getIntent().getIntExtra("resourceId",0);
         if (resourceId > 0) {
             ((ImageView) findViewById(R.id.photo)).setImageResource(resourceId);
         }
@@ -62,7 +62,7 @@ public class CountActivity extends AppCompatActivity {
 
                 Intent i = new Intent(CountActivity.this, CalendarActivity.class);
                 i.putExtra("name", name);
-                db.insert(name, "",0,"0","0", year, month, day, price, category);
+                db.insert(name, "",0,"0","0", "",  year, month, day, price, category, resourceId);
                 startActivity(i);
             }
         });

@@ -31,6 +31,7 @@ public class SettingActivity extends AppCompatActivity {
     String dateTo;
 
     Button setLimit;
+    Button deletLimit;
     int expenseLimit;
     EditText expenseAmtInput;
     TextView tvDateInput;
@@ -40,15 +41,15 @@ public class SettingActivity extends AppCompatActivity {
     AlertDialog.Builder builder;
     String result="";
     String name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         Intent intent_setting = getIntent();
 
-        //Bundle b;
-        //b =getIntent().getExtras(); //Important to have this in every page so that u can access ur data, it act as like a session storage
-        //name = b.getString("name");   //Important to have this in every page so that u can access ur data, it act as like a session storage
+        Bundle b = intent_setting.getExtras();
+        name = b.getString("name");   //Important to have this in every page so that u can access ur data, it act as like a session storage
 
         //name123=(TextView)findViewById(R.id.name123);
         //name123.setText("Name: " +name);
@@ -142,12 +143,20 @@ public class SettingActivity extends AppCompatActivity {
                     builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            boolean isUpdated =db.updateLimit(name,expenseLimit,dateFrom,dateTo);
+                            boolean set_valid = db.checkLimit(name);
+                            boolean isUpdated;
+                            if(set_valid) {
+                                isUpdated = db.updateLimit(name, expenseLimit, dateFrom, dateTo);
+                            }
+                            else{
+                                isUpdated = db.insert(name, "", expenseLimit, dateFrom, dateTo, name,  0, 0, 0, 0, 0, 0);
+                            }
                             if(isUpdated==true){
                                 showToast(String.valueOf(expenseLimit));
-                                Intent i = new Intent(SettingActivity.this,SettingActivity.class);
+                                Intent i = new Intent(SettingActivity.this, CalendarActivity.class);
                                 i.putExtra("name",name);  //Important to have this in every page so that u can access ur data, it act as like a session storage
                                 startActivity(i);
+                                finish();
                             }else{
                                 Toast.makeText(getApplicationContext(), "updated database fail", Toast.LENGTH_SHORT).show();
                             }
@@ -169,46 +178,19 @@ public class SettingActivity extends AppCompatActivity {
                 }
             }
         });
+        deletLimit = (Button) findViewById(R.id.delete);
+        deletLimit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.deleteLimit(name);
+                Toast.makeText(getApplicationContext(), "Limitation set deleted", Toast.LENGTH_SHORT).show();
+            }
+
+        });
     }
 
     private void showToast(String text) {
         Toast.makeText(SettingActivity.this, text, Toast.LENGTH_SHORT).show();
 
-    }
-    public void onClick_setting(View v){
-        Intent intent_settingAct = new Intent(getApplicationContext(), SettingActivity.class);
-        try{
-            startActivity(intent_settingAct);
-        }catch (Exception e){
-            Log.d("ERROR", e.toString());
-        }
-        finally {
-            finish();
-        }
-    }
-
-    public void onClick_calendar(View v){
-        Intent intent_calendarAct = new Intent(getApplicationContext(), CalendarActivity.class);
-        try{
-            startActivity(intent_calendarAct);
-        }catch (Exception e){
-            Log.d("ERROR", e.toString());
-        }
-        finally {
-            finish();
-        }
-    }
-
-    public void onClick_summary(View v){
-        Intent intent_summaryAct = new Intent(getApplicationContext(), SummaryActivity.class);
-
-        try{
-            startActivity(intent_summaryAct);
-        }catch (Exception e){
-            Log.d("ERROR", e.toString());
-        }
-        finally {
-            finish();
-        }
     }
 }
