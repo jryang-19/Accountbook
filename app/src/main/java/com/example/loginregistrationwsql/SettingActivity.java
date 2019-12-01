@@ -36,11 +36,12 @@ public class SettingActivity extends AppCompatActivity {
     EditText expenseAmtInput;
     TextView tvDateInput;
     TextView tvDate2Input;
-    TextView name123;
+    TextView limit_set;
     AlertDialog dialog;
     AlertDialog.Builder builder;
     String result="";
     String name;
+    String show_limit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,9 +185,17 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 db.deleteLimit(name);
                 Toast.makeText(getApplicationContext(), "Limitation set deleted", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(SettingActivity.this, CalendarActivity.class);
+                i.putExtra("name",name);  //Important to have this in every page so that u can access ur data, it act as like a session storage
+                startActivity(i);
+                finish();
             }
 
         });
+
+        limit_set = (TextView) findViewById(R.id.limit_set);
+        show_limit = db.showLimit(name);
+        limit_set.setText(show_limit);
     }
 
     private void showToast(String text) {

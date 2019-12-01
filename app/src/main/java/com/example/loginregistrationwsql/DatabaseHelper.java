@@ -90,13 +90,33 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         contentValues.put("dateFrom", "");
         contentValues.put("dateTo", "");
 
-        db.execSQL("delete from user where set_valid = ?", new String[]{email});
+        //db.execSQL("delete from user where set_valid = ?", new String[]{email});
         long delete = db.delete(TABLE_NAME,  "set_valid = ?", new String[]{ email });
         if(delete != -1){
             return true;
         }
         else
             return false;
+    }
+
+    public String showLimit(String email){
+        String res = "";
+        String datefrom;
+        String dateto;
+        int limit;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from user where email =? and set_valid =?",new String[]{email, email});
+        if(cursor.moveToFirst()){
+            datefrom =  cursor.getString(3);
+            dateto = cursor.getString(4);
+            limit = cursor.getInt(2);
+            res = datefrom+" ~ "+dateto+": "+limit;
+        }
+        else
+            res = "No limitation set";
+
+        return res;
     }
 
     public int[] day_expanse_category(String email, int year, int month, int day) {
