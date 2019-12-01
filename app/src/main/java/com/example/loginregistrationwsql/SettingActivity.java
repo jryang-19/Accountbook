@@ -20,8 +20,6 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 public class SettingActivity extends AppCompatActivity {
-
-
     DatabaseHelper db;
     private static final String TAG = "SettingActivity";
     private TextView mDisplayDate;
@@ -31,21 +29,29 @@ public class SettingActivity extends AppCompatActivity {
     private TextView mDisplayDateTo;
     private DatePickerDialog.OnDateSetListener mDateSetListner2;
     String dateTo;
-    Button goBack;
+
     Button setLimit;
     int expenseLimit;
     EditText expenseAmtInput;
     TextView tvDateInput;
     TextView tvDate2Input;
+    TextView name123;
     AlertDialog dialog;
     AlertDialog.Builder builder;
+    String result="";
     String name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-        Bundle b =getIntent().getExtras(); //Important to have this in every page so that u can access ur data, it act as like a session storage
-        name = b.getString("name");   //Important to have this in every page so that u can access ur data, it act as like a session storage
+        Intent intent_setting = getIntent();
+
+        //Bundle b;
+        //b =getIntent().getExtras(); //Important to have this in every page so that u can access ur data, it act as like a session storage
+        //name = b.getString("name");   //Important to have this in every page so that u can access ur data, it act as like a session storage
+
+        //name123=(TextView)findViewById(R.id.name123);
+        //name123.setText("Name: " +name);
         db = new DatabaseHelper(this);
         mDisplayDate = (TextView) findViewById(R.id.tvDate);
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
@@ -109,17 +115,6 @@ public class SettingActivity extends AppCompatActivity {
         tvDateInput = (TextView) findViewById(R.id.tvDate);
         tvDate2Input = (TextView) findViewById(R.id.tvDate2);
 
-        //Alert dialog function for exceeded expense limit
-        goBack = (Button) findViewById(R.id.goBack);
-        goBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(SettingActivity.this,WelcomeActivity.class);
-                i.putExtra("name",name);  //Important to have this in every page so that u can access ur data, it act as like a session storage
-                startActivity(i);
-            }
-        });
-
         //When Set limit Button is pressed
         expenseAmtInput = (EditText) findViewById(R.id.expenseAmt);
         setLimit = (Button) findViewById(R.id.limitBtn);
@@ -150,7 +145,7 @@ public class SettingActivity extends AppCompatActivity {
                             boolean isUpdated =db.updateLimit(name,expenseLimit,dateFrom,dateTo);
                             if(isUpdated==true){
                                 showToast(String.valueOf(expenseLimit));
-                                Intent i = new Intent(SettingActivity.this,WelcomeActivity.class);
+                                Intent i = new Intent(SettingActivity.this,SettingActivity.class);
                                 i.putExtra("name",name);  //Important to have this in every page so that u can access ur data, it act as like a session storage
                                 startActivity(i);
                             }else{
@@ -171,21 +166,49 @@ public class SettingActivity extends AppCompatActivity {
 
                     dialog = builder.create();
                     dialog.show();
-
                 }
-
-
-
             }
         });
-
-
-
     }
 
     private void showToast(String text) {
         Toast.makeText(SettingActivity.this, text, Toast.LENGTH_SHORT).show();
 
     }
+    public void onClick_setting(View v){
+        Intent intent_settingAct = new Intent(getApplicationContext(), SettingActivity.class);
+        try{
+            startActivity(intent_settingAct);
+        }catch (Exception e){
+            Log.d("ERROR", e.toString());
+        }
+        finally {
+            finish();
+        }
+    }
 
+    public void onClick_calendar(View v){
+        Intent intent_calendarAct = new Intent(getApplicationContext(), CalendarActivity.class);
+        try{
+            startActivity(intent_calendarAct);
+        }catch (Exception e){
+            Log.d("ERROR", e.toString());
+        }
+        finally {
+            finish();
+        }
+    }
+
+    public void onClick_summary(View v){
+        Intent intent_summaryAct = new Intent(getApplicationContext(), SummaryActivity.class);
+
+        try{
+            startActivity(intent_summaryAct);
+        }catch (Exception e){
+            Log.d("ERROR", e.toString());
+        }
+        finally {
+            finish();
+        }
+    }
 }

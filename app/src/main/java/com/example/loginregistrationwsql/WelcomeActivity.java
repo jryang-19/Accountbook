@@ -37,6 +37,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         Bundle b =getIntent().getExtras(); //Important to have this in every page so that u can access ur data, it act as like a session storage
         name = b.getString("name");   //Important to have this in every page so that u can access ur data, it act as like a session storage
+        // email을 특정 지목함. (name = email)
 
         name123.setText("Hello " +name);
         String passwor = db.displayPW(name);

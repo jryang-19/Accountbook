@@ -10,43 +10,47 @@ import androidx.annotation.Nullable;
 
 public class DatabaseHelper extends SQLiteOpenHelper{
 
-    public static final String TABLE_NAME = "user";
+    public static final String TABLE_NAME1 = "user";
+    public static final String TABLE_NAME2 = "expanse";
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, "BC.db", null, 1);
     }
 
-    @Override
+    @Override//db create
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("Create table user(email text primary key, password text, expenses integer, setLimit integer, previous_month text, daily_expense text, dateFrom text, dateTo text )");
+        db.execSQL("Create table user(email text, password text, setLimit integer, dateFrom text, dateTo text, year integer, month integer, day integer, price integer, category integer )");
+        // first: name. second: type
     }
 
-    @Override
+    @Override //when upgrade db
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table if exists user");
         onCreate(db);
     }
-    //inserting in database
-    public boolean insert (String email,String password,int expenses,int setLimit,String previous_month,String daily_expense,String dateFrom,String dateTo){
+    //inserting in database // insert 성공하면 1.
+    public boolean insert (String email, String password, int setLimit, String dateFrom, String dateTo, int year, int month, int day, int price, int category){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("email",email);
-        contentValues.put("password",password);
-        contentValues.put("expenses",expenses);
-        contentValues.put("setLimit",setLimit);
-        contentValues.put("previous_month",previous_month);
-        contentValues.put("daily_expense",daily_expense);
-        contentValues.put("dateFrom",dateFrom);
-        contentValues.put("dateTo",dateTo);
-        long ins = db.insert("user",null,contentValues);
-        if (ins==1) return false;
+        contentValues.put("email", email);
+        contentValues.put("password", password);
+        contentValues.put("setLimit", setLimit);
+        contentValues.put("dateFrom", dateFrom);
+        contentValues.put("dateTo", dateTo);
+        contentValues.put("year", year);
+        contentValues.put("month", month);
+        contentValues.put("day", day);
+        contentValues.put("price", price);
+        contentValues.put("category", category);
+        long ins = db.insert("user",null, contentValues); // table 이름,nullColumnHack = DB에 비어있는 값이 못들어가서 비어있으면 null값을 넣음, 생성해놓은 데이터 맵
+        if (ins==-1) return false;
         else return true;
-
     }
+
     //checking if email exists
     public Boolean chkemail(String email){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("Select * from user where email=?", new String[]{email});
+        Cursor cursor = db.rawQuery("Select * from user where email=?", new String[]{email}); //cursor은 커서로 각 행을 가르킴. 처음엔 첫 행.//rawQuery는 SELECT 문으로 데이터베이스를 조회할때
         if(cursor.getCount()>0) return false;
         else return true;
     }
@@ -108,7 +112,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         contentValues.put("setLimit",limit);
         contentValues.put("dateFrom",dateFrom);
         contentValues.put("dateTo",dateTo);
-        db.update(TABLE_NAME, contentValues, "email = ?",new String[]{ email });
+        db.update(TABLE_NAME1, contentValues, "email = ?",new String[]{ email });
         return true;
     }
 
@@ -117,10 +121,47 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("setLimit",limit);
-        db.update(TABLE_NAME, contentValues, "email = ?",new String[]{ email });
+        db.update(TABLE_NAME1, contentValues, "email = ?",new String[]{ email });
         return true;
     }
 
+    public int[] day_expanse_category(String email, int year, int month, int day) {
+        int[] category = new int[4];
+        for (int i = 0; i < 4; i++) {
+            category[i] = 0;
+        }
 
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from user where email=? and day=? and month=? and year=?", new String[]{email, "" + day,  "" + month, "" + year});
+        while(cursor.moveToNext()) {
+            category[cursor.getInt(9)] += cursor.getInt(8);
+        }
+        return category;
+    }
+
+    public int[] month_expanse_category(String email, int year, int month){
+        int[] category = new int[4];
+        for(int i=0; i<4; i++) {
+            category[i] = 0;
+        }
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from user where email=? and month=? and year=?", new String[]{email, ""+month, ""+year});
+        while(cursor.moveToNext()){
+            category[cursor.getInt(9)] += cursor.getInt(8);
+        }
+        return category;
+    }
+
+    public int month_expanse(String email, int year, int month){
+        int res = 0;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("Select * from user where email=? and month=? and year=?", new String[]{email, ""+month, ""+year});
+        while(cursor.moveToNext()){
+            res += cursor.getInt(8);
+        }
+        return res;
+    }
 
 }

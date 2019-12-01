@@ -2,17 +2,12 @@ package com.example.loginregistrationwsql;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Login extends AppCompatActivity {
     EditText e1,e2;
@@ -35,7 +30,7 @@ public class Login extends AppCompatActivity {
                 Boolean Chkemailpass = db.emailPassword(email,password);
                 if(Chkemailpass ==true){
                     Toast.makeText(getApplicationContext(), "Successfully Logged in", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(Login.this,WelcomeActivity.class);
+                    Intent i = new Intent(Login.this,CalendarActivity.class);
                     i.putExtra("name",email);
                     startActivity(i);
                 }

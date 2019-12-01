@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="12"
+    android:orientation="vertical">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="1"
+        android:rowCount="2"
+        android:orientation="vertical"
+        android:layout_weight="5">
+        <ImageView
+            android:id="@+id/photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/food"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center"
+            android:padding="10dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/how_much"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="How much?"
+                android:inputType="number"
+                android:layout_gravity="center"
+                android:padding="10dp"/>
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="submit"
+                android:layout_margin="20dp"
+
+                />
+
+        </LinearLayout>
+
+    </GridLayout>
+
+
+
+
+</LinearLayout>
