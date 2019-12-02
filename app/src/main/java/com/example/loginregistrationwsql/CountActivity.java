@@ -64,7 +64,7 @@ public class CountActivity extends AppCompatActivity {
 
                 Intent i = new Intent(CountActivity.this, CalendarActivity.class);
                 i.putExtra("name", name);
-                db.insert(name, "",0,"0","0", "",  year, month, day, price, category, resourceId, num_day);
+                db.insert(name, "",0,"0","0", "",  year, month, day, price, category, resourceId, num_day+1);
                 startActivity(i);
             }
         });

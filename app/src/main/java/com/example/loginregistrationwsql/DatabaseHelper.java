@@ -244,7 +244,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             if(date_from[0] == date_to[0] && date_from[1] == date_to[1] && date_from[2] == date_to[2]+1)
                 break;
         }
-        s_res = " Current: \t\t" + tmp + " ";
+        s_res = " Current: " + tmp + "           ";
         if(tmp < limit) {
             res = (float)(tmp / (float)limit) * 100;
             s_res = s_res + res + "%";
