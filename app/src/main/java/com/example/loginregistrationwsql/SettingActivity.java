@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,6 +19,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
 
@@ -38,10 +43,12 @@ public class SettingActivity extends AppCompatActivity {
     TextView tvDate2Input;
     TextView limit_set;
     AlertDialog dialog;
-    AlertDialog.Builder builder;
+    AlertDialog.Builder builder_set;
     String result="";
     String name;
     String show_limit;
+    String push_title;
+    String push_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,13 +142,13 @@ public class SettingActivity extends AppCompatActivity {
 
                     //display the number in the little pop up
 
-                    builder = new AlertDialog.Builder(SettingActivity.this);
-                    builder.setTitle("Are you Sure?")
+                    builder_set = new AlertDialog.Builder(SettingActivity.this);
+                    builder_set.setTitle("Are you Sure?")
                             .setMessage("Set Expense limit to " + expenseLimit + " from " + dateFrom + " to " + dateTo + "?");
 
 
 
-                    builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    builder_set.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             boolean set_valid = db.checkLimit(name);
@@ -150,11 +157,11 @@ public class SettingActivity extends AppCompatActivity {
                                 isUpdated = db.updateLimit(name, expenseLimit, dateFrom, dateTo);
                             }
                             else{
-                                isUpdated = db.insert(name, "", expenseLimit, dateFrom, dateTo, name,  0, 0, 0, 0, 0, 0);
+                                isUpdated = db.insert(name, "", expenseLimit, dateFrom, dateTo, name,  0, 0, 0, 0, 0, 0, 0);
                             }
                             if(isUpdated==true){
                                 showToast(String.valueOf(expenseLimit));
-                                Intent i = new Intent(SettingActivity.this, CalendarActivity.class);
+                                Intent i = new Intent(SettingActivity.this, SettingActivity.class);
                                 i.putExtra("name",name);  //Important to have this in every page so that u can access ur data, it act as like a session storage
                                 startActivity(i);
                                 finish();
@@ -167,14 +174,14 @@ public class SettingActivity extends AppCompatActivity {
                         }
 
                     });
-                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    builder_set.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
                         }
                     });
 
-                    dialog = builder.create();
+                    dialog = builder_set.create();
                     dialog.show();
                 }
             }
@@ -185,7 +192,7 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 db.deleteLimit(name);
                 Toast.makeText(getApplicationContext(), "Limitation set deleted", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(SettingActivity.this, CalendarActivity.class);
+                Intent i = new Intent(SettingActivity.this, SettingActivity.class);
                 i.putExtra("name",name);  //Important to have this in every page so that u can access ur data, it act as like a session storage
                 startActivity(i);
                 finish();
@@ -196,6 +203,58 @@ public class SettingActivity extends AppCompatActivity {
         limit_set = (TextView) findViewById(R.id.limit_set);
         show_limit = db.showLimit(name);
         limit_set.setText(show_limit);
+
+        //푸시 알림을 보내기위해 시스템에 권한을 요청하여 생성
+
+        final NotificationManager notificationManager =
+
+                (NotificationManager)SettingActivity.this.getSystemService(SettingActivity.this.NOTIFICATION_SERVICE);
+
+
+
+//푸시 알림 터치시 실행할 작업 설정(여기선 MainActivity로 이동하도록 설정)
+
+        final Intent intent = new Intent(SettingActivity.this.getApplicationContext(), SettingActivity.class);
+
+        //Notification 객체 생성
+        final Notification.Builder builder_alert = new Notification.Builder(getApplicationContext());
+
+
+
+//푸시 알림을 터치하여 실행할 작업에 대한 Flag 설정 (현재 액티비티를 최상단으로 올린다 | 최상단 액티비티를 제외하고 모든 액티비티를 제거한다)
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        Button fab = (Button) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean set_valid = db.checkLimit(name);
+                if (set_valid) {
+                    push_title = db.push_title(name);
+                    push_text = db.push_text(name);
+                    Snackbar.make(view, "Alarm generated", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+
+
+                    //앞서 생성한 작업 내용을 Notification 객체에 담기 위한 PendingIntent 객체 생성
+                    PendingIntent pendnoti = PendingIntent.getActivity(SettingActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+                    //푸시 알림에 대한 각종 설정
+
+                    builder_alert.setSmallIcon(R.drawable.alarm).setTicker("Ticker").setWhen(System.currentTimeMillis())
+                            .setNumber(1).setContentTitle(push_title).setContentText(push_text)
+                            .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE).setContentIntent(pendnoti).setAutoCancel(true).setOngoing(false);
+
+
+                    //NotificationManager를 이용하여 푸시 알림 보내기
+                    notificationManager.notify(1, builder_alert.build());
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "No limit setting", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void showToast(String text) {

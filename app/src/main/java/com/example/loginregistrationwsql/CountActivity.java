@@ -21,6 +21,7 @@ public class CountActivity extends AppCompatActivity {
     int day;
     int price;
     int category;
+    int num_day;
 
     TextView t;
 
@@ -40,6 +41,7 @@ public class CountActivity extends AppCompatActivity {
         day = bun.getInt("day");
         category = bun.getInt("category");
         name = bun.getString("name");
+        num_day = db.num_day(name, year, month, day);
 
         final int resourceId = getIntent().getIntExtra("resourceId",0);
         if (resourceId > 0) {
@@ -62,7 +64,7 @@ public class CountActivity extends AppCompatActivity {
 
                 Intent i = new Intent(CountActivity.this, CalendarActivity.class);
                 i.putExtra("name", name);
-                db.insert(name, "",0,"0","0", "",  year, month, day, price, category, resourceId);
+                db.insert(name, "",0,"0","0", "",  year, month, day, price, category, resourceId, num_day);
                 startActivity(i);
             }
         });

@@ -20,7 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     @Override//db create
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("Create table user(email text, password text, setLimit integer, dateFrom text, dateTo text, set_valid text, year integer, month integer, day integer, price integer, category integer, image_id integer )");
+        db.execSQL("Create table user(email text, password text, setLimit integer, dateFrom text, dateTo text, set_valid text, year integer, month integer, day integer, price integer, category integer, image_id integer, num_day integer )");
         // first: name. second: type
     }
 
@@ -30,7 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         onCreate(db);
     }
     //inserting in database // insert 성공하면 1.
-    public boolean insert (String email, String password, int setLimit, String dateFrom, String dateTo, String set_valid, int year, int month, int day, int price, int category, int image_id){
+    public boolean insert (String email, String password, int setLimit, String dateFrom, String dateTo, String set_valid, int year, int month, int day, int price, int category, int image_id, int num_day){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("email", email);
@@ -45,6 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         contentValues.put("price", price);
         contentValues.put("category", category);
         contentValues.put("image_id", image_id);
+        contentValues.put("num_day", num_day);
         long ins = db.insert("user",null, contentValues); // table 이름,nullColumnHack = DB에 비어있는 값이 못들어가서 비어있으면 null값을 넣음, 생성해놓은 데이터 맵
         if (ins==-1) return false;
         else return true;
@@ -186,7 +187,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from user where email =? and set_valid =?",new String[]{email, email});
         if(cursor.moveToFirst()){
-            res = res + cursor.getString(3) + " ~ " + cursor.getString(4);
+            res = res + cursor.getString(3) + " ~ " + cursor.getString(4) + ": " + cursor.getInt(2);
         }
         cursor.close();
         return res;
@@ -198,7 +199,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         String datefrom;
         String dateto;
         int limit = 0;
-        double res;
+        float res;
         int[] date_from = new int[3];
         int[] date_to = new int[3];
         int i = 0;
@@ -229,8 +230,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }
 
         while(true){
-            if(date_from[0] == date_to[0] && date_from[1] == date_to[1] && date_from[2] == date_to[2])
-                break;
             tmp += day_expanse(email, date_from[0], date_from[1], date_from[2]);
             date_from[2] += 1;
             if(date_from[2] == 32) {
@@ -241,14 +240,29 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 date_from[1] = 1;
                 date_from[0] += 1;
             }
+
+            if(date_from[0] == date_to[0] && date_from[1] == date_to[1] && date_from[2] == date_to[2]+1)
+                break;
         }
+        s_res = " Current: \t\t" + tmp + " ";
         if(tmp < limit) {
-            res = (double)(tmp / (double)limit) * 100;
-            s_res = "" + res + "%";
+            res = (float)(tmp / (float)limit) * 100;
+            s_res = s_res + res + "%";
             return s_res;
         }
-        else
-            return "Over limitation!!";
+        else {
+            s_res = s_res + "Over limitation!!";
+            return s_res;
+        }
+    }
+
+    public int num_day(String email, int year, int month, int day){
+        int res = 0;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("Select * from user where email=? and day=? and month=? and year=?", new String[]{email, ""+day,  ""+month, ""+year});
+        res = cursor.getCount();
+        return res;
     }
 
 }

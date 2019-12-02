@@ -42,8 +42,6 @@ public class CalendarActivity extends AppCompatActivity implements View.OnTouchL
     DatabaseHelper db;
     String name;
     int day;
-    String push_title;
-    String push_text;
 
     private class calMonth{
         int year;
@@ -92,57 +90,6 @@ public class CalendarActivity extends AppCompatActivity implements View.OnTouchL
 
         printCal(calMonth);
 
-        //푸시 알림을 보내기위해 시스템에 권한을 요청하여 생성
-
-        final NotificationManager notificationManager =
-
-                (NotificationManager)CalendarActivity.this.getSystemService(CalendarActivity.this.NOTIFICATION_SERVICE);
-
-
-
-//푸시 알림 터치시 실행할 작업 설정(여기선 MainActivity로 이동하도록 설정)
-
-        final Intent intent = new Intent(CalendarActivity.this.getApplicationContext(), CalendarActivity.class);
-
-        //Notification 객체 생성
-        final Notification.Builder builder = new Notification.Builder(getApplicationContext());
-
-
-
-//푸시 알림을 터치하여 실행할 작업에 대한 Flag 설정 (현재 액티비티를 최상단으로 올린다 | 최상단 액티비티를 제외하고 모든 액티비티를 제거한다)
-        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        Button fab = (Button) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                boolean set_valid = db.checkLimit(name);
-                if (set_valid) {
-                    push_title = db.push_title(name);
-                    push_text = db.push_text(name);
-                    Snackbar.make(view, "Alarm generated", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-
-
-                    //앞서 생성한 작업 내용을 Notification 객체에 담기 위한 PendingIntent 객체 생성
-                    PendingIntent pendnoti = PendingIntent.getActivity(CalendarActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-
-                    //푸시 알림에 대한 각종 설정
-
-                    builder.setSmallIcon(R.drawable.alarm).setTicker("Ticker").setWhen(System.currentTimeMillis())
-                            .setNumber(1).setContentTitle(push_title).setContentText(push_text)
-                            .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE).setContentIntent(pendnoti).setAutoCancel(true).setOngoing(false);
-
-
-                    //NotificationManager를 이용하여 푸시 알림 보내기
-                    notificationManager.notify(1, builder.build());
-                }
-                else{
-                    Toast.makeText(getApplicationContext(), "No limit setting", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
 
         // ------- Ontouch Listener Define -> slide
 
