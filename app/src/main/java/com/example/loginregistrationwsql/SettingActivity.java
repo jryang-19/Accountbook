@@ -212,7 +212,7 @@ public class SettingActivity extends AppCompatActivity {
 
 
 
-//푸시 알림 터치시 실행할 작업 설정(여기선 MainActivity로 이동하도록 설정)
+    //푸시 알림 터치시 실행할 작업 설정(여기선 MainActivity로 이동하도록 설정)
 
         final Intent intent = new Intent(SettingActivity.this.getApplicationContext(), SettingActivity.class);
 
@@ -232,8 +232,8 @@ public class SettingActivity extends AppCompatActivity {
                 if (set_valid) {
                     push_title = db.push_title(name);
                     push_text = db.push_text(name);
-                    Snackbar.make(view, "Alarm generated", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    //Snackbar.make(view, "Alarm generated", Snackbar.LENGTH_LONG)
+                            //.setAction("Action", null).show();
 
 
                     //앞서 생성한 작업 내용을 Notification 객체에 담기 위한 PendingIntent 객체 생성

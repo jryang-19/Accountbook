@@ -256,6 +256,63 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }
     }
 
+    public boolean limit_check(String email){
+        int tmp = 0;
+        String datefrom;
+        String dateto;
+        int limit = 0;
+        float res;
+        int[] date_from = new int[3];
+        int[] date_to = new int[3];
+        int i = 0;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from user where email =? and set_valid =?",new String[]{email, email});
+        if(cursor.moveToFirst()){
+            datefrom =  cursor.getString(3);
+            dateto = cursor.getString(4);
+            limit = cursor.getInt(2);
+        }
+        else{
+            return false;
+        }
+        cursor.close();
+
+        StringTokenizer st1 = new StringTokenizer(datefrom, "/");
+        StringTokenizer st2 = new StringTokenizer(dateto, "/");
+
+        while(st1.hasMoreTokens()){
+            date_from[i]= Integer.parseInt(st1.nextToken());
+            i++;
+        }
+        i = 0;
+        while(st2.hasMoreTokens()){
+            date_to[i]= Integer.parseInt(st2.nextToken());
+            i++;
+        }
+
+        while(true){
+            tmp += day_expanse(email, date_from[0], date_from[1], date_from[2]);
+            date_from[2] += 1;
+            if(date_from[2] == 32) {
+                date_from[2] = 1;
+                date_from[1] += 1;
+            }
+            if(date_from[1] == 13){
+                date_from[1] = 1;
+                date_from[0] += 1;
+            }
+
+            if(date_from[0] == date_to[0] && date_from[1] == date_to[1] && date_from[2] == date_to[2]+1)
+                break;
+        }
+        res = (float)(tmp / (float)limit) * 100;
+        if(res < 90)
+            return false;
+        else
+            return true;
+    }
+
     public int num_day(String email, int year, int month, int day){
         int res = 0;
 
