@@ -41,6 +41,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnTouchL
     Button logoutBtn;
     DatabaseHelper db;
     String name;
+    String PW;
     int day;
     String push_title;
     String push_text;
@@ -69,6 +70,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnTouchL
         db = new DatabaseHelper(this);
         Bundle b =getIntent().getExtras(); //Important to have this in every page so that u can access ur data, it act as like a session storage
         name = b.getString("name");   //Important to have this in every page so that u can access ur data, it act as like a session storage
+        PW = b.getString("PW");
 
         Intent i = getIntent();
 
@@ -378,6 +380,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnTouchL
         intent_settingAct.putExtra("month", today_date.getMonth());
         intent_settingAct.putExtra("date",today_date.getDate());
         intent_settingAct.putExtra("name", name);
+        intent_settingAct.putExtra("PW", PW);
 
         startActivity(intent_settingAct);
     }

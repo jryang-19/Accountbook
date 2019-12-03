@@ -32,6 +32,7 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Successfully Logged in", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(Login.this,CalendarActivity.class);
                     i.putExtra("name",email);
+                    i.putExtra("PW", password);
                     startActivity(i);
                 }
                 else{

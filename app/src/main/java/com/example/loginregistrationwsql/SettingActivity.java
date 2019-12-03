@@ -44,8 +44,8 @@ public class SettingActivity extends AppCompatActivity {
     TextView limit_set;
     AlertDialog dialog;
     AlertDialog.Builder builder_set;
-    String result="";
     String name;
+    String PW;
     String show_limit;
     String push_title;
     String push_text;
@@ -58,6 +58,7 @@ public class SettingActivity extends AppCompatActivity {
 
         Bundle b = intent_setting.getExtras();
         name = b.getString("name");   //Important to have this in every page so that u can access ur data, it act as like a session storage
+        PW = b.getString("PW");
 
         //name123=(TextView)findViewById(R.id.name123);
         //name123.setText("Name: " +name);
@@ -151,14 +152,8 @@ public class SettingActivity extends AppCompatActivity {
                     builder_set.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            boolean set_valid = db.checkLimit(name);
                             boolean isUpdated;
-                            if(set_valid) {
-                                isUpdated = db.updateLimit(name, expenseLimit, dateFrom, dateTo);
-                            }
-                            else{
-                                isUpdated = db.insert(name, "", expenseLimit, dateFrom, dateTo, name,  0, 0, 0, 0, 0, 0, 0);
-                            }
+                            isUpdated = db.updateLimit(PW, expenseLimit, dateFrom, dateTo, name);
                             if(isUpdated==true){
                                 showToast(String.valueOf(expenseLimit));
                                 Intent i = new Intent(SettingActivity.this, SettingActivity.class);
@@ -190,7 +185,7 @@ public class SettingActivity extends AppCompatActivity {
         deletLimit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.deleteLimit(name);
+                db.updateLimit(PW, 0, "", "", "");
                 Toast.makeText(getApplicationContext(), "Limitation set deleted", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(SettingActivity.this, SettingActivity.class);
                 i.putExtra("name",name);  //Important to have this in every page so that u can access ur data, it act as like a session storage

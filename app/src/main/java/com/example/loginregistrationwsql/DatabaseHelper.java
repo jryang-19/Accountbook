@@ -69,31 +69,16 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
 
     //update limit
-    public boolean updateLimit(String email, int limit, String dateFrom, String dateTo){
+    public boolean updateLimit(String PW, int limit, String dateFrom, String dateTo, String set_valid){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("setLimit",limit);
         contentValues.put("dateFrom",dateFrom);
         contentValues.put("dateTo",dateTo);
+        contentValues.put("set_valid", set_valid);
 
-        long update = db.update(TABLE_NAME, contentValues, "set_valid = ?", new String[]{ email });
+        long update = db.update(TABLE_NAME, contentValues, "password = ?", new String[]{ PW });
         if(update != -1){
-            return true;
-        }
-        else
-            return false;
-    }
-
-    public boolean deleteLimit(String email){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("setLimit", 0);
-        contentValues.put("dateFrom", "");
-        contentValues.put("dateTo", "");
-
-        //db.execSQL("delete from user where set_valid = ?", new String[]{email});
-        long delete = db.delete(TABLE_NAME,  "set_valid = ?", new String[]{ email });
-        if(delete != -1){
             return true;
         }
         else
