@@ -3,6 +3,7 @@ package com.example.loginregistrationwsql;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -84,6 +85,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnTouchL
             public void onClick(View v) {
                 Intent i = new Intent(CalendarActivity.this, MainActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 

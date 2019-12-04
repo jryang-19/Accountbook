@@ -1,5 +1,6 @@
 package com.example.loginregistrationwsql;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,9 +16,12 @@ public class CategoriesActivity extends AppCompatActivity implements View.OnClic
     int month;
     int day;
     int category;
+    public static Activity cateact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        cateact = CategoriesActivity.this;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
         Intent intent = getIntent();

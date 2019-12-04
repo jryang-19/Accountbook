@@ -121,34 +121,5 @@ public class SummaryActivity extends AppCompatActivity {
 
         chart3.startAnimation();
     }
-    public void onClick_setting(View v){
-        Intent intent_settingAct = new Intent(getApplicationContext(), SettingActivity.class);
-        intent_settingAct.putExtra("name", name);
-        intent_settingAct.putExtra("year", year);
-        intent_settingAct.putExtra("month", month);
-        intent_settingAct.putExtra("day", day);
-        intent_settingAct.putExtra("PW", PW);
-        startActivity(intent_settingAct);
-    }
-
-    public void onClick_calendar(View v){
-        Intent intent_calendAct = new Intent(getApplicationContext(), CalendarActivity.class);
-        intent_calendAct.putExtra("name", name);
-        intent_calendAct.putExtra("year", year);
-        intent_calendAct.putExtra("month", month);
-        intent_calendAct.putExtra("day", day);
-        intent_calendAct.putExtra("PW", PW);
-        startActivity(intent_calendAct);
-    }
-
-    public void onClick_summary(View v){
-        Intent intent_summaryAct = new Intent(getApplicationContext(), SummaryActivity.class);
-        intent_summaryAct.putExtra("name", name);
-        intent_summaryAct.putExtra("year", year);
-        intent_summaryAct.putExtra("month", month);
-        intent_summaryAct.putExtra("day", day);
-        intent_summaryAct.putExtra("PW", PW);
-        startActivity(intent_summaryAct);
-    }
 }
 

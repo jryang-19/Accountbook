@@ -15,7 +15,8 @@ public class CountActivity extends AppCompatActivity {
     String PW;
     DatabaseHelper db;
     Button b1;
-    EditText e;
+    EditText e1;
+    EditText e2;
     Bundle bun;
     int year;
     int month;
@@ -23,8 +24,9 @@ public class CountActivity extends AppCompatActivity {
     int price;
     int category;
     int num_day;
-
-    TextView t;
+    String info;
+    SubActivity subact = (SubActivity)SubActivity.subact;
+    CategoriesActivity cateact = (CategoriesActivity)CategoriesActivity.cateact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,18 +57,25 @@ public class CountActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    e = (EditText) findViewById(R.id.how_much);
-                    price = Integer.parseInt(e.getText().toString().trim());
-                } catch (NumberFormatException e){
+                    e1 = (EditText) findViewById(R.id.how_much);
+                    e2 = (EditText) findViewById(R.id.info);
+                    price = Integer.parseInt(e1.getText().toString().trim());
+                    info = e2.getText().toString();
+                } catch (NumberFormatException e1){
                     Toast.makeText(getApplicationContext(), "field is empty", Toast.LENGTH_SHORT).show();
                 }
 
                 if(price != 0) {
-                    Intent i = new Intent(CountActivity.this, CalendarActivity.class);
+                    Intent i = new Intent(CountActivity.this, SubActivity.class);
                     i.putExtra("name", name);
-                    i.putExtra("PW", PW);
-                    db.insert(name, "", 0, "", "", "", year, month, day, price, category, resourceId, num_day + 1);
+                    i.putExtra("year", year);
+                    i.putExtra("month", month);
+                    i.putExtra("day", day);
+                    db.insert(name, "", 0, "", "", "", year, month, day, price, category, resourceId, num_day + 1, info);
                     startActivity(i);
+                    subact.finish();
+                    cateact.finish();
+                    finish();
                 }
                 else{
                     Intent i = new Intent(CountActivity.this, CountActivity.class);
@@ -78,7 +87,7 @@ public class CountActivity extends AppCompatActivity {
                     i.putExtra("category", category);
                     i.putExtra("resourceId", resourceId);
                     startActivity(i);
-
+                    finish();
                 }
             }
         });

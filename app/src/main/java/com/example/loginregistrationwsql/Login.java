@@ -13,6 +13,7 @@ public class Login extends AppCompatActivity {
     EditText e1,e2;
     Button b1;
     DatabaseHelper db;
+    MainActivity regact = (MainActivity)MainActivity.regact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +34,12 @@ public class Login extends AppCompatActivity {
                     Intent i = new Intent(Login.this,CalendarActivity.class);
                     i.putExtra("name",email);
                     i.putExtra("PW", password);
+                    regact.finish();
                     startActivity(i);
+                    finish();
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "Wrong Email or Password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Wrong ID or Password", Toast.LENGTH_SHORT).show();
                 }
 
             }

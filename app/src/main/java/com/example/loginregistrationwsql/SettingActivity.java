@@ -190,6 +190,7 @@ public class SettingActivity extends AppCompatActivity {
                 }
             }
         });
+
         deletLimit = (Button) findViewById(R.id.delete);
         deletLimit.setOnClickListener(new View.OnClickListener() {
             @Override

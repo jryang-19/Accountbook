@@ -20,7 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     @Override//db create
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("Create table user(email text, password text, setLimit integer, dateFrom text, dateTo text, set_valid text, year integer, month integer, day integer, price integer, category integer, image_id integer, num_day integer )");
+        db.execSQL("Create table user(email text, password text, setLimit integer, dateFrom text, dateTo text, set_valid text, year integer, month integer, day integer, price integer, category integer, image_id integer, num_day integer, info text )");
         // first: name. second: type
     }
 
@@ -30,7 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         onCreate(db);
     }
     //inserting in database // insert 성공하면 1.
-    public boolean insert (String email, String password, int setLimit, String dateFrom, String dateTo, String set_valid, int year, int month, int day, int price, int category, int image_id, int num_day){
+    public boolean insert (String email, String password, int setLimit, String dateFrom, String dateTo, String set_valid, int year, int month, int day, int price, int category, int image_id, int num_day, String info){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("email", email);
@@ -46,6 +46,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         contentValues.put("category", category);
         contentValues.put("image_id", image_id);
         contentValues.put("num_day", num_day);
+        contentValues.put("info", info);
         long ins = db.insert("user",null, contentValues); // table 이름,nullColumnHack = DB에 비어있는 값이 못들어가서 비어있으면 null값을 넣음, 생성해놓은 데이터 맵
         if (ins==-1) return false;
         else return true;
@@ -102,6 +103,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         else
             res = "No limitation set";
 
+        cursor.close();
         return res;
     }
 
@@ -304,7 +306,82 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("Select * from user where email=? and day=? and month=? and year=?", new String[]{email, ""+day,  ""+month, ""+year});
         res = cursor.getCount();
+        cursor.close();
         return res;
     }
 
+    public int image_id (String email, int year, int month, int day, int num_day){
+        int res = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("Select * from user where email=? and day=? and month=? and year=? and num_day = ?", new String[]{email, ""+day,  ""+month, ""+year, ""+num_day});
+        if(cursor.moveToFirst()){
+            res = cursor.getInt(11);
+        }
+        cursor.close();
+        return res;
+    }
+
+    public int expanse (String email, int year, int month, int day, int num_day){
+        int res = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("Select * from user where email=? and day=? and month=? and year=? and num_day=?", new String[]{email, ""+day,  ""+month, ""+year, ""+num_day});
+        if(cursor.moveToFirst()){
+            res = cursor.getInt(9);
+        }
+        cursor.close();
+        return res;
+    }
+
+    public String info (String email, int year, int month, int day, int num_day){
+        String res = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("Select * from user where email=? and day=? and month=? and year=? and num_day=?", new String[]{email, ""+day,  ""+month, ""+year, ""+num_day});
+        if(cursor.moveToFirst()){
+            res = cursor.getString(13);
+        }
+        cursor.close();
+        return res;
+    }
+
+    public boolean deleteExpanse (String email, int year, int month, int day, int num_day){
+        SQLiteDatabase db = this.getReadableDatabase();
+        int a = day_count(email, year, month, day);
+        int b;
+        ContentValues contentValues = new ContentValues();
+
+        long delete = db.delete(TABLE_NAME, "email = ? and year = ? and month = ? and day = ? and num_day = ?", new String[]{ email, ""+year, ""+month, ""+day, ""+num_day});
+
+        for(int n=num_day; n<a; n++){
+            b = n + 1;
+            contentValues.put("num_day", n);
+
+            long update = db.update(TABLE_NAME, contentValues, "email = ? and year = ? and month = ? and day = ? and num_day = ?", new String[]{ email, ""+year, ""+month, ""+day, ""+b });
+        }
+
+        if(delete == -1)
+            return false;
+        else
+            return true;
+    }
+
+    public boolean deleteUser(String email){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        long delete = db.delete(TABLE_NAME, "email = ?", new String[]{ email});
+        if(delete == -1)
+            return false;
+        else
+            return true;
+    }
+
+    public int day_count(String email, int year, int month, int day){
+        int res = 0;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("Select * from user where email=? and day=? and month=? and year=?", new String[]{email, ""+day,  ""+month, ""+year});
+        res = cursor.getCount();
+        cursor.close();
+        return res;
+    }
 }
