@@ -25,6 +25,7 @@ public class CountActivity extends AppCompatActivity {
     int category;
     int num_day;
     String info;
+    CalendarActivity calandact = (CalendarActivity) CalendarActivity.calandact;
     SubActivity subact = (SubActivity)SubActivity.subact;
     CategoriesActivity cateact = (CategoriesActivity)CategoriesActivity.cateact;
 
@@ -66,13 +67,12 @@ public class CountActivity extends AppCompatActivity {
                 }
 
                 if(price != 0) {
-                    Intent i = new Intent(CountActivity.this, SubActivity.class);
+                    Intent i = new Intent(CountActivity.this, CalendarActivity.class);
                     i.putExtra("name", name);
-                    i.putExtra("year", year);
-                    i.putExtra("month", month);
-                    i.putExtra("day", day);
+                    i.putExtra("PW", PW);
                     db.insert(name, "", 0, "", "", "", year, month, day, price, category, resourceId, num_day + 1, info);
                     startActivity(i);
+                    calandact.finish();
                     subact.finish();
                     cateact.finish();
                     finish();

@@ -1,13 +1,17 @@
 package com.example.loginregistrationwsql;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import java.text.SimpleDateFormat;
@@ -46,6 +50,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnTouchL
     int day;
     String push_title;
     String push_text;
+    public static Activity calandact;
 
     private class calMonth{
         int year;
@@ -61,9 +66,12 @@ public class CalendarActivity extends AppCompatActivity implements View.OnTouchL
 
     public calMonth calMonth;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        calandact = CalendarActivity.this;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calender);
         topBar = (TextView) findViewById(R.id.top_bar);
@@ -99,48 +107,32 @@ public class CalendarActivity extends AppCompatActivity implements View.OnTouchL
 
 
         if(db.limit_check(name)) {
+            push_title = db.push_title(name);
+            push_text = db.push_text(name);
             //푸시 알림을 보내기위해 시스템에 권한을 요청하여 생성
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+                NotificationChannel notificationChannel = new NotificationChannel("alarm_channel", "test", NotificationManager.IMPORTANCE_DEFAULT);
+                notificationChannel.setDescription("test");
+                notificationManager.createNotificationChannel(notificationChannel);
+            }
 
-            final NotificationManager notificationManager =
+            Notification noti = new NotificationCompat.Builder(CalendarActivity.this, "alarm_channel")
+                    .setColor(0)
+                    .setDefaults(Notification.DEFAULT_LIGHTS)
+                    .setSmallIcon(R.drawable.alarm)
+                    .setContentTitle(push_title)
+                    .setContentText(push_text)
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .build();
+
+            final NotificationManager nm =
 
                     (NotificationManager) CalendarActivity.this.getSystemService(CalendarActivity.this.NOTIFICATION_SERVICE);
 
-
-            //푸시 알림 터치시 실행할 작업 설정(여기선 MainActivity로 이동하도록 설정)
-
-            final Intent intent = new Intent(CalendarActivity.this.getApplicationContext(), CalendarActivity.class);
-
-            //Notification 객체 생성
-            final Notification.Builder builder_alert = new Notification.Builder(getApplicationContext());
-
-
-//푸시 알림을 터치하여 실행할 작업에 대한 Flag 설정 (현재 액티비티를 최상단으로 올린다 | 최상단 액티비티를 제외하고 모든 액티비티를 제거한다)
-            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-            boolean set_valid = db.checkLimit(name);
-            if (set_valid) {
-                push_title = db.push_title(name);
-                push_text = db.push_text(name);
-                //Snackbar.make(view, "Alarm generated", Snackbar.LENGTH_LONG)
-                //.setAction("Action", null).show();
-
-
-                //앞서 생성한 작업 내용을 Notification 객체에 담기 위한 PendingIntent 객체 생성
-                PendingIntent pendnoti = PendingIntent.getActivity(CalendarActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-
-                //푸시 알림에 대한 각종 설정
-
-                builder_alert.setSmallIcon(R.drawable.alarm).setTicker("Ticker").setWhen(System.currentTimeMillis())
-                        .setNumber(1).setContentTitle(push_title).setContentText(push_text)
-                        .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE).setContentIntent(pendnoti).setAutoCancel(true).setOngoing(false);
-
-
-                //NotificationManager를 이용하여 푸시 알림 보내기
-                notificationManager.notify(1, builder_alert.build());
-            } else {
-                Toast.makeText(getApplicationContext(), "No limit setting", Toast.LENGTH_SHORT).show();
-            }
+            nm.notify(NOTIFICATION_SERVICE, 0, noti);
+        } else {
+            Toast.makeText(getApplicationContext(), "No limit setting", Toast.LENGTH_SHORT).show();
         }
 
 

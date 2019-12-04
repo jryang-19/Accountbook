@@ -17,7 +17,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Email"
+        android:hint="ID"
         android:inputType="textEmailAddress" />
 
     <Space

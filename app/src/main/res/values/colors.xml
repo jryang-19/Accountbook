@@ -10,4 +10,6 @@
     <color name="color_blue">#0000FF</color>
     <color name="color_gray">#696969</color>
     <color name="transparent">#F5F5F5</color>
+    <color name="color_pink">#FE2E64</color>
+
 </resources>

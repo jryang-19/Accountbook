@@ -1,16 +1,20 @@
 package com.example.loginregistrationwsql;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -238,23 +242,28 @@ public class SettingActivity extends AppCompatActivity {
                 if (set_valid) {
                     push_title = db.push_title(name);
                     push_text = db.push_text(name);
-                    //Snackbar.make(view, "Alarm generated", Snackbar.LENGTH_LONG)
-                            //.setAction("Action", null).show();
+                    //푸시 알림을 보내기위해 시스템에 권한을 요청하여 생성
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+                        NotificationChannel notificationChannel = new NotificationChannel("alarm_channel", "test", NotificationManager.IMPORTANCE_DEFAULT);
+                        notificationChannel.setDescription("test");
+                        notificationManager.createNotificationChannel(notificationChannel);
+                    }
 
+                    Notification noti = new NotificationCompat.Builder(SettingActivity.this, "alarm_channel")
+                            .setColor(0)
+                            .setDefaults(Notification.DEFAULT_LIGHTS)
+                            .setSmallIcon(R.drawable.alarm)
+                            .setContentTitle(push_title)
+                            .setContentText(push_text)
+                            .setPriority(NotificationCompat.PRIORITY_HIGH)
+                            .build();
 
-                    //앞서 생성한 작업 내용을 Notification 객체에 담기 위한 PendingIntent 객체 생성
-                    PendingIntent pendnoti = PendingIntent.getActivity(SettingActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    final NotificationManager nm =
 
+                            (NotificationManager) SettingActivity.this.getSystemService(SettingActivity.this.NOTIFICATION_SERVICE);
 
-                    //푸시 알림에 대한 각종 설정
-
-                    builder_alert.setSmallIcon(R.drawable.alarm).setTicker("Ticker").setWhen(System.currentTimeMillis())
-                            .setNumber(1).setContentTitle(push_title).setContentText(push_text)
-                            .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE).setContentIntent(pendnoti).setAutoCancel(true).setOngoing(false);
-
-
-                    //NotificationManager를 이용하여 푸시 알림 보내기
-                    notificationManager.notify(1, builder_alert.build());
+                    nm.notify(NOTIFICATION_SERVICE, 0, noti);
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "No limit setting", Toast.LENGTH_SHORT).show();
