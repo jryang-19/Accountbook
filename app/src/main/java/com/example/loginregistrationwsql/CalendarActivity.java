@@ -373,14 +373,6 @@ public class CalendarActivity extends AppCompatActivity implements View.OnTouchL
     public void onClick_setting(View v){
         Intent intent_settingAct = new Intent(getApplicationContext(), SettingActivity.class);
 
-        // needs today's information
-
-
-        Date today_date = getNowDate();
-
-        intent_settingAct.putExtra("year", today_date.getYear()+1900);
-        intent_settingAct.putExtra("month", today_date.getMonth());
-        intent_settingAct.putExtra("date",today_date.getDate());
         intent_settingAct.putExtra("name", name);
         intent_settingAct.putExtra("PW", PW);
 

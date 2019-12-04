@@ -106,8 +106,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
 
     public int[] day_expanse_category(String email, int year, int month, int day) {
-        int[] category = new int[4];
-        for (int i = 0; i < 4; i++) {
+        int[] category = new int[13];
+        for (int i = 0; i < 13; i++) {
             category[i] = 0;
         }
 
@@ -121,8 +121,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
 
     public int[] month_expanse_category(String email, int year, int month){
-        int[] category = new int[4];
-        for(int i=0; i<4; i++) {
+        int[] category = new int[13];
+        for(int i=0; i<13; i++) {
             category[i] = 0;
         }
 
@@ -292,7 +292,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 break;
         }
         res = (float)(tmp / (float)limit) * 100;
-        if(res < 90)
+        if(res < 50)
             return false;
         else
             return true;

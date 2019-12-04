@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
+import java.util.StringTokenizer;
 
 public class SettingActivity extends AppCompatActivity {
     DatabaseHelper db;
@@ -153,20 +154,27 @@ public class SettingActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             boolean isUpdated;
-                            isUpdated = db.updateLimit(PW, expenseLimit, dateFrom, dateTo, name);
-                            if(isUpdated==true){
-                                showToast(String.valueOf(expenseLimit));
+                            if(confirm_date(dateFrom, dateTo)) {
+                                isUpdated = db.updateLimit(PW, expenseLimit, dateFrom, dateTo, name);
+                                if (isUpdated == true) {
+                                    showToast(String.valueOf(expenseLimit));
+                                    Intent i = new Intent(SettingActivity.this, SettingActivity.class);
+                                    i.putExtra("name", name); //Important to have this in every page so that u can access ur data, it act as like a session storage
+                                    i.putExtra("PW", PW);
+                                    startActivity(i);
+                                    finish();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "updated database fail", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            else{
+                                Toast.makeText(getApplicationContext(), "check date", Toast.LENGTH_SHORT).show();
                                 Intent i = new Intent(SettingActivity.this, SettingActivity.class);
-                                i.putExtra("name",name); //Important to have this in every page so that u can access ur data, it act as like a session storage
-                                i.putExtra("PW",PW);
+                                i.putExtra("name", name); //Important to have this in every page so that u can access ur data, it act as like a session storage
+                                i.putExtra("PW", PW);
                                 startActivity(i);
                                 finish();
-                            }else{
-                                Toast.makeText(getApplicationContext(), "updated database fail", Toast.LENGTH_SHORT).show();
                             }
-
-
-
                         }
 
                     });
@@ -257,5 +265,25 @@ public class SettingActivity extends AppCompatActivity {
     private void showToast(String text) {
         Toast.makeText(SettingActivity.this, text, Toast.LENGTH_SHORT).show();
 
+    }
+
+    private Boolean confirm_date(String datefrom, String dateto){
+        StringTokenizer st1 = new StringTokenizer(datefrom, "/");
+        StringTokenizer st2 = new StringTokenizer(dateto, "/");
+
+        int from = 0;
+        int to = 0;
+
+        while(st1.hasMoreTokens()){
+            from += Integer.parseInt(st1.nextToken());
+        }
+        while(st2.hasMoreTokens()){
+            to += Integer.parseInt(st2.nextToken());
+        }
+
+        if(from < to)
+            return true;
+        else
+            return false;
     }
 }

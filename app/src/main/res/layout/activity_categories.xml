@@ -32,85 +32,78 @@
 
                 >
                 <ImageView
-                    android:id="@+id/ImageView_dinner"
+                    android:id="@+id/ImageView_food"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:src="@drawable/food"
                     android:layout_margin="10dp"
                     android:clickable="true"/>
                 <ImageView
-                    android:id="@+id/ImageView_cafe"
+                    android:id="@+id/ImageView_drink"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:src="@drawable/cafe"
                     android:layout_margin="10dp"
                     android:clickable="true"/>
                 <ImageView
-                    android:id="@+id/ImageView_cart"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/cart"
-                    android:layout_margin="10dp"
-                    android:clickable="true"/>
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/plus"
-                    android:layout_margin="10dp"/>
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/plus"
-                    android:layout_margin="10dp"/>
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/plus"
-                    android:layout_margin="10dp"/>
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/cart"
-                    android:layout_margin="10dp"/>
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/cart"
-                    android:layout_margin="10dp"/>
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/cart"
-                    android:layout_margin="10dp"/>
-                <ImageView
+                    android:id="@+id/ImageView_Transportation"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:src="@drawable/bus"
                     android:layout_margin="10dp"/>
                 <ImageView
+                    android:id="@+id/ImageView_Gift"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/bus"
+                    android:src="@drawable/gift"
                     android:layout_margin="10dp"/>
                 <ImageView
+                    android:id="@+id/ImageView_Clothes"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/bus"
+                    android:src="@drawable/clothes"
                     android:layout_margin="10dp"/>
                 <ImageView
+                    android:id="@+id/ImageView_Fees"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/plus"
+                    android:src="@drawable/fees"
                     android:layout_margin="10dp"/>
                 <ImageView
+                    android:id="@+id/ImageView_Education"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/plus"
+                    android:src="@drawable/education"
                     android:layout_margin="10dp"/>
                 <ImageView
+                    android:id="@+id/ImageView_Entertainment"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/plus"
+                    android:src="@drawable/entertainment"
+                    android:layout_margin="10dp"/>
+                <ImageView
+                    android:id="@+id/ImageView_Groceries"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/groceries"
+                    android:layout_margin="10dp"/>
+                <ImageView
+                    android:id="@+id/ImageView_Health"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:src="@drawable/health"
+                    android:layout_margin="5dp"/>
+                <ImageView
+                    android:id="@+id/ImageView_Beauty"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/beauty"
+                    android:layout_margin="10dp"/>
+                <ImageView
+                    android:id="@+id/ImageView_Others"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/other"
                     android:layout_margin="10dp"/>
 
             </GridLayout>

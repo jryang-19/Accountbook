@@ -75,17 +75,35 @@ public class SummaryActivity extends AppCompatActivity {
 //day
         chart1.clearChart();
         day_category = db.day_expanse_category(name, year, month, day);
-        chart1.addPieSlice(new PieModel("food", day_category[1], Color.parseColor("#CDA67F")));
-        chart1.addPieSlice(new PieModel("game",day_category[2], Color.parseColor("#00BFFF")));
-        chart1.addPieSlice(new PieModel("cart",day_category[3], Color.parseColor("#181907")));
+        chart1.addPieSlice(new PieModel("Food", day_category[1], Color.parseColor("#FF0000")));
+        chart1.addPieSlice(new PieModel("Drink",day_category[2], Color.parseColor("#FF8000")));
+        chart1.addPieSlice(new PieModel("Transportation",day_category[3], Color.parseColor("#FFFF00")));
+        chart1.addPieSlice(new PieModel("Gift",day_category[4], Color.parseColor("#80FF00")));
+        chart1.addPieSlice(new PieModel("Clothes",day_category[5], Color.parseColor("#00FFBF")));
+        chart1.addPieSlice(new PieModel("Fees",day_category[6], Color.parseColor("#0080FF")));
+        chart1.addPieSlice(new PieModel("Education",day_category[7], Color.parseColor("#8000FF")));
+        chart1.addPieSlice(new PieModel("Entertainment",day_category[8], Color.parseColor("#FF00FF")));
+        chart1.addPieSlice(new PieModel("Groceries",day_category[9], Color.parseColor("#3B0B17")));
+        chart1.addPieSlice(new PieModel("Health",day_category[10], Color.parseColor("#A4A4A4")));
+        chart1.addPieSlice(new PieModel("Beauty",day_category[11], Color.parseColor("#000000")));
+        chart1.addPieSlice(new PieModel("Others",day_category[12], Color.parseColor("#3A2F0B")));
         chart1.startAnimation();
         // }
 //month
         chart2.clearChart();
         month_category = db.month_expanse_category(name, year, month);
-        chart2.addPieSlice(new PieModel("food", month_category[1], Color.parseColor("#CDA67F")));
-        chart2.addPieSlice(new PieModel("game", month_category[2], Color.parseColor("#00BFFF")));
-        chart2.addPieSlice(new PieModel("cart", month_category[3], Color.parseColor("#181907")));
+        chart2.addPieSlice(new PieModel("Food", month_category[1], Color.parseColor("#FF0000")));
+        chart2.addPieSlice(new PieModel("Drink",month_category[2], Color.parseColor("#FF8000")));
+        chart2.addPieSlice(new PieModel("Transportation",month_category[3], Color.parseColor("#FFFF00")));
+        chart2.addPieSlice(new PieModel("Gift",month_category[4], Color.parseColor("#80FF00")));
+        chart2.addPieSlice(new PieModel("Clothes",month_category[5], Color.parseColor("#00FFBF")));
+        chart2.addPieSlice(new PieModel("Fees",month_category[6], Color.parseColor("#0080FF")));
+        chart2.addPieSlice(new PieModel("Education",month_category[7], Color.parseColor("#8000FF")));
+        chart2.addPieSlice(new PieModel("Entertainment",month_category[8], Color.parseColor("#FF00FF")));
+        chart2.addPieSlice(new PieModel("Groceries",month_category[9], Color.parseColor("#3B0B17")));
+        chart2.addPieSlice(new PieModel("Health",month_category[10], Color.parseColor("#A4A4A4")));
+        chart2.addPieSlice(new PieModel("Beauty",month_category[11], Color.parseColor("#000000")));
+        chart2.addPieSlice(new PieModel("Others",month_category[12], Color.parseColor("#3A2F0B")));
         chart2.startAnimation();
 
 
