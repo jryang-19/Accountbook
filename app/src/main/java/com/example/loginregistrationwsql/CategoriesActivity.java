@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class CategoriesActivity extends AppCompatActivity implements View.OnClickListener {
     Bundle bun;
     String name;
+    String PW;
     int year;
     int month;
     int day;
@@ -26,6 +27,7 @@ public class CategoriesActivity extends AppCompatActivity implements View.OnClic
         month = bun.getInt("month");
         day = bun.getInt("day");
         name = bun.getString("name");
+        PW = bun.getString("PW");
 
         findViewById(R.id.ImageView_dinner).setOnClickListener(this);
         findViewById(R.id.ImageView_cafe).setOnClickListener(this);
@@ -52,6 +54,7 @@ public class CategoriesActivity extends AppCompatActivity implements View.OnClic
             Intent intent2 = new Intent(CategoriesActivity.this, CountActivity.class);
             intent2.putExtra("resourceId", resourceId);
             intent2.putExtra("name", name);
+            intent2.putExtra("PW", PW);
             intent2.putExtra("year", year);
             intent2.putExtra("month", month);
             intent2.putExtra("day", day);

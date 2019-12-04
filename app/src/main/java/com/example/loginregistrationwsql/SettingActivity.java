@@ -157,7 +157,8 @@ public class SettingActivity extends AppCompatActivity {
                             if(isUpdated==true){
                                 showToast(String.valueOf(expenseLimit));
                                 Intent i = new Intent(SettingActivity.this, SettingActivity.class);
-                                i.putExtra("name",name);  //Important to have this in every page so that u can access ur data, it act as like a session storage
+                                i.putExtra("name",name); //Important to have this in every page so that u can access ur data, it act as like a session storage
+                                i.putExtra("PW",PW);
                                 startActivity(i);
                                 finish();
                             }else{
@@ -189,6 +190,7 @@ public class SettingActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Limitation set deleted", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(SettingActivity.this, SettingActivity.class);
                 i.putExtra("name",name);  //Important to have this in every page so that u can access ur data, it act as like a session storage
+                i.putExtra("PW",PW);
                 startActivity(i);
                 finish();
             }

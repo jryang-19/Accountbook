@@ -17,6 +17,7 @@ public class SummaryActivity extends AppCompatActivity {
     PieChart chart2;
     BarChart chart3;
     String name;
+    String PW;
     DatabaseHelper db;
     int year;
     int pre_year;
@@ -46,6 +47,7 @@ public class SummaryActivity extends AppCompatActivity {
         month = bun.getInt("month");
         day = bun.getInt("day");
         name = bun.getString("name");
+        PW = bun.getString("PW");
 
         pre_year = year;
         pre_month = month-1;
@@ -107,6 +109,7 @@ public class SummaryActivity extends AppCompatActivity {
         intent_settingAct.putExtra("year", year);
         intent_settingAct.putExtra("month", month);
         intent_settingAct.putExtra("day", day);
+        intent_settingAct.putExtra("PW", PW);
         startActivity(intent_settingAct);
     }
 
@@ -116,6 +119,7 @@ public class SummaryActivity extends AppCompatActivity {
         intent_calendAct.putExtra("year", year);
         intent_calendAct.putExtra("month", month);
         intent_calendAct.putExtra("day", day);
+        intent_calendAct.putExtra("PW", PW);
         startActivity(intent_calendAct);
     }
 
@@ -125,6 +129,7 @@ public class SummaryActivity extends AppCompatActivity {
         intent_summaryAct.putExtra("year", year);
         intent_summaryAct.putExtra("month", month);
         intent_summaryAct.putExtra("day", day);
+        intent_summaryAct.putExtra("PW", PW);
         startActivity(intent_summaryAct);
     }
 }

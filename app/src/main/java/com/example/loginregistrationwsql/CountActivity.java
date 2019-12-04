@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class CountActivity extends AppCompatActivity {
     String name;
+    String PW;
     DatabaseHelper db;
     Button b1;
     EditText e;
@@ -41,6 +42,7 @@ public class CountActivity extends AppCompatActivity {
         day = bun.getInt("day");
         category = bun.getInt("category");
         name = bun.getString("name");
+        PW = bun.getString("PW");
         num_day = db.num_day(name, year, month, day);
 
         final int resourceId = getIntent().getIntExtra("resourceId",0);
@@ -55,17 +57,29 @@ public class CountActivity extends AppCompatActivity {
                 try {
                     e = (EditText) findViewById(R.id.how_much);
                     price = Integer.parseInt(e.getText().toString().trim());
-                }catch (NumberFormatException e){
+                } catch (NumberFormatException e){
                     Toast.makeText(getApplicationContext(), "field is empty", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(CountActivity.this, CalendarActivity.class);
-                    i.putExtra("name", name);
-                    startActivity(i);
                 }
 
-                Intent i = new Intent(CountActivity.this, CalendarActivity.class);
-                i.putExtra("name", name);
-                db.insert(name, "",0,"","", "",  year, month, day, price, category, resourceId, num_day+1);
-                startActivity(i);
+                if(price != 0) {
+                    Intent i = new Intent(CountActivity.this, CalendarActivity.class);
+                    i.putExtra("name", name);
+                    i.putExtra("PW", PW);
+                    db.insert(name, "", 0, "", "", "", year, month, day, price, category, resourceId, num_day + 1);
+                    startActivity(i);
+                }
+                else{
+                    Intent i = new Intent(CountActivity.this, CountActivity.class);
+                    i.putExtra("name", name);
+                    i.putExtra("PW", PW);
+                    i.putExtra("year", year);
+                    i.putExtra("month", month);
+                    i.putExtra("day", day);
+                    i.putExtra("category", category);
+                    i.putExtra("resourceId", resourceId);
+                    startActivity(i);
+
+                }
             }
         });
     }

@@ -68,7 +68,8 @@ public class CalendarActivity extends AppCompatActivity implements View.OnTouchL
         topBar = (TextView) findViewById(R.id.top_bar);
         gridView = (GridView) findViewById(R.id.gridview);
         db = new DatabaseHelper(this);
-        Bundle b =getIntent().getExtras(); //Important to have this in every page so that u can access ur data, it act as like a session storage
+        Intent intent1 = getIntent();
+        Bundle b = intent1.getExtras(); //Important to have this in every page so that u can access ur data, it act as like a session storage
         name = b.getString("name");   //Important to have this in every page so that u can access ur data, it act as like a session storage
         PW = b.getString("PW");
 
@@ -330,6 +331,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnTouchL
                     intent_subAct.putExtra("day", Integer.parseInt(getItem(position)));
                     day = Integer.parseInt(getItem(position));
                     intent_subAct.putExtra("name", name);
+                    intent_subAct.putExtra("PW", PW);
 
                     startActivity(intent_subAct);
                 }
@@ -388,6 +390,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnTouchL
     public void onClick_calendar(View v){
         Intent intent_calendAct = new Intent(getApplicationContext(), CalendarActivity.class);
         intent_calendAct.putExtra("name", name);
+        intent_calendAct.putExtra("PW", PW);
 
         startActivity(intent_calendAct);
     }
@@ -401,6 +404,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnTouchL
         intent_summaryAct.putExtra("month", calMonth.month);
         intent_summaryAct.putExtra("day", today_date.getDate());
         intent_summaryAct.putExtra("name", name);
+        intent_summaryAct.putExtra("PW", PW);
         startActivity(intent_summaryAct);
     }
 
