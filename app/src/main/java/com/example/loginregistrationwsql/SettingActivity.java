@@ -286,12 +286,12 @@ public class SettingActivity extends AppCompatActivity {
         int i = 0;
 
         while(st1.hasMoreTokens()){
-            from[0] += Integer.parseInt(st1.nextToken());
+            from[i] += Integer.parseInt(st1.nextToken());
             i++;
         }
         i = 0;
         while(st2.hasMoreTokens()){
-            to[0] = Integer.parseInt(st2.nextToken());
+            to[i] = Integer.parseInt(st2.nextToken());
             i++;
         }
 
