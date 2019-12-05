@@ -33,6 +33,7 @@ public class SubActivity extends AppCompatActivity {
     EditText input;
     Bundle bun;
     String name;
+    String PW;
     int year;
     int month;
     int day;
@@ -57,6 +58,7 @@ public class SubActivity extends AppCompatActivity {
         month = bun.getInt("month");
         day = bun.getInt("day");
         name = bun.getString("name");
+        PW = bun.getString("PW");
         date = (TextView)findViewById(R.id.date);
         date.setText("" + year + " - " + month + " - " + day);
 
@@ -83,6 +85,7 @@ public class SubActivity extends AppCompatActivity {
                 intent.putExtra("month", month);
                 intent.putExtra("day", day);
                 intent.putExtra("name", name);
+                intent.putExtra("PW", PW);
                 startActivity(intent);
             }
         });
@@ -111,6 +114,7 @@ public class SubActivity extends AppCompatActivity {
                     intent.putExtra("month", month);
                     intent.putExtra("day", day);
                     intent.putExtra("name", name);
+                    intent.putExtra("PW", PW);
                     startActivity(intent);
                     finish();
                 }
@@ -121,6 +125,7 @@ public class SubActivity extends AppCompatActivity {
                     intent.putExtra("month", month);
                     intent.putExtra("day", day);
                     intent.putExtra("name", name);
+                    intent.putExtra("PW", PW);
                     startActivity(intent);
                     finish();
                 }

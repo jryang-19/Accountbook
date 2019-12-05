@@ -375,6 +375,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnTouchL
         intent_calendAct.putExtra("PW", PW);
 
         startActivity(intent_calendAct);
+        finish();
     }
 
     public void onClick_summary(View v){
