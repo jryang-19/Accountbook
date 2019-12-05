@@ -3,20 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/color_white" >
+    android:background="@drawable/back_image">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginBottom="40dp"
+
         >
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="20dp"
             android:text="User Name"
+            android:fontFamily="@font/jalnanfont"
+            android:textColor="@color/color_white"
             android:textSize="30sp"/>
 
         <View
@@ -29,7 +33,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClick_logout"
+            android:background="@drawable/buttonshape2"
             android:text="LOGOUT"
+            android:layout_marginRight="15dp"
             />
     </LinearLayout>
 
@@ -37,7 +43,7 @@
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/color_skyblue"
+
         android:fontFamily="@font/binggraefont"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
@@ -49,7 +55,7 @@
         android:id="@+id/gridview"
         android:layout_width="match_parent"
         android:layout_height="554dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="1dp"
         android:layout_weight="1"
         android:clickable="false"
         android:fontFamily="@font/jalnanfont"

@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="12"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/back2"
+    >
 
     <GridLayout
         android:layout_width="match_parent"
@@ -52,7 +54,8 @@
                 android:layout_height="wrap_content"
                 android:text="submit"
                 android:layout_margin="20dp"
-
+                android:background="@drawable/buttonshape"
+                android:textColor="@color/color_white"
                 />
 
         </LinearLayout>

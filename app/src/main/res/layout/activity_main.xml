@@ -5,14 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/back_image">
 
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
-
+        android:layout_height="80dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:textColor="@color/color_white"
+        android:textSize="30dp"
+        android:fontFamily="@font/jalnanfont"
+        android:layout_gravity="center"/>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
     <EditText
+
         android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -51,33 +63,44 @@
         android:layout_height="50dp" />
 
     <Button
+        android:layout_gravity="center"
         android:id="@+id/register"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-
-        android:text="Register" />
-
+        android:text="REGISTER"
+        android:textColor="#EFFBF5"
+        android:background="@drawable/buttonshape"/>
     <Space
         android:layout_width="match_parent"
         android:layout_height="25dp" />
-
-    <Button
-        android:id="@+id/delete_user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="DELETE" />
-
-    <Space
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="25dp" />
-
-    <Button
-        android:id="@+id/login"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Login" />
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_gravity="bottom">
+
+        <Button
+            android:id="@+id/login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_white"
+            android:text="Login"
+            android:background="@drawable/buttonshape2"/>
+        <Space
+            android:layout_width="50dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:textColor="@color/color_white"
+            android:background="@drawable/buttonshape2"
+            android:id="@+id/delete_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="DELETE" />
+    </LinearLayout>
+
+
 
 </LinearLayout>
