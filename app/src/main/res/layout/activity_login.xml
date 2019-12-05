@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Login"
-    android:background="@drawable/back_image">
+    tools:context=".Login">
 
     <Space
         android:layout_width="match_parent"
@@ -15,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="My Account Book"
-        android:textColor="@color/color_white"
+        android:textColor="@color/color_black"
         android:textSize="30dp"
         android:fontFamily="@font/jalnanfont"
         android:layout_gravity="center"/>
@@ -28,6 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/jalnanfont"
         android:ems="10"
         android:hint="ID"
         android:inputType="textEmailAddress"
@@ -44,6 +44,7 @@
         android:ems="10"
         android:hint="Password"
         android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/jalnanfont"
         android:inputType="textPassword"
         android:textCursorDrawable="@drawable/edit_text_cursor_color"/>
 

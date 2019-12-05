@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/back_image">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +19,7 @@
             android:padding="20dp"
             android:text="User Name"
             android:fontFamily="@font/jalnanfont"
-            android:textColor="@color/color_white"
+            android:textColor="@color/color_black"
             android:textSize="30sp"/>
 
         <View
@@ -33,6 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClick_logout"
+            android:fontFamily="@font/jalnanfont"
             android:background="@drawable/buttonshape2"
             android:text="LOGOUT"
             android:layout_marginRight="15dp"
@@ -47,7 +47,7 @@
         android:fontFamily="@font/binggraefont"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
-        android:textColor="@color/color_white"
+        android:textColor="@color/color_black"
         android:textSize="20sp" />
 
 
@@ -80,6 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:fontFamily="@font/jalnanfont"
             android:gravity="center"
             android:onClick="onClick_setting"
             android:text="Setting" />
@@ -92,6 +93,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:onClick="onClick_calendar"
+            android:fontFamily="@font/jalnanfont"
             android:gravity="center"
             android:text="Calendar"
             android:background="@color/color_skyblue"/>
@@ -103,6 +105,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:onClick="onClick_summary"
+            android:fontFamily="@font/jalnanfont"
             android:gravity="center"
             android:text="Summary" />
         <View

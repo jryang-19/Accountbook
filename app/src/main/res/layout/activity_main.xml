@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity"
-    android:background="@drawable/back_image">
+    tools:context=".MainActivity">
 
 
     <Space
@@ -16,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Register"
-        android:textColor="@color/color_white"
+        android:textColor="@color/color_black"
         android:textSize="30dp"
         android:fontFamily="@font/jalnanfont"
         android:layout_gravity="center"/>
@@ -29,6 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/jalnanfont"
         android:ems="10"
         android:hint="ID"
         android:inputType="textEmailAddress" />
@@ -43,6 +43,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Password"
+        android:fontFamily="@font/jalnanfont"
         android:layout_gravity="center_horizontal"
         android:inputType="textPassword" />
 
@@ -57,6 +58,7 @@
         android:ems="10"
         android:hint="Confirm Password"
         android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/jalnanfont"
         android:inputType="textPassword" />
     <Space
         android:layout_width="match_parent"
@@ -67,6 +69,7 @@
         android:id="@+id/register"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/jalnanfont"
         android:text="REGISTER"
         android:textColor="#EFFBF5"
         android:background="@drawable/buttonshape"/>
@@ -85,6 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/color_white"
+            android:fontFamily="@font/jalnanfont"
             android:text="Login"
             android:background="@drawable/buttonshape2"/>
         <Space
@@ -95,6 +99,7 @@
             android:textColor="@color/color_white"
             android:background="@drawable/buttonshape2"
             android:id="@+id/delete_user"
+            android:fontFamily="@font/jalnanfont"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
