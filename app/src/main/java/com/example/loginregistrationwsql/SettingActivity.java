@@ -281,19 +281,33 @@ public class SettingActivity extends AppCompatActivity {
         StringTokenizer st1 = new StringTokenizer(datefrom, "/");
         StringTokenizer st2 = new StringTokenizer(dateto, "/");
 
-        int from = 0;
-        int to = 0;
+        int[] from = new int[3];
+        int[] to = new int[3];
+        int i = 0;
 
         while(st1.hasMoreTokens()){
-            from += Integer.parseInt(st1.nextToken());
+            from[i] = Integer.parseInt(st1.nextToken());
+            i++;
         }
+        i = 0;
         while(st2.hasMoreTokens()){
-            to += Integer.parseInt(st2.nextToken());
+            to[i] = Integer.parseInt(st2.nextToken());
+            i++;
         }
 
-        if(from < to)
+        if(from[0] < to[0]) {
             return true;
-        else
-            return false;
+        }
+        else {
+            if (from[1] < to[1]) {
+                return true;
+            }
+            else {
+                if (from[2] < to[2])
+                    return true;
+                else
+                    return false;
+            }
+        }
     }
 }
