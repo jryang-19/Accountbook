@@ -61,6 +61,7 @@
         android:layout_gravity="center"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/jalnanfont"
         android:textColor="#EFFBF5"
         android:background="@drawable/buttonshape"
         android:text="Login" />
