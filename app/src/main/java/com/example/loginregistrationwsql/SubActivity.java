@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -94,14 +95,16 @@ public class SubActivity extends AppCompatActivity {
         final AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
 
         input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         builder1.setTitle("Select position");
         builder1.setView(input);
         builder1.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
+                int check = db.day_count(name, year, month, day);
                 position = Integer.parseInt(input.getText().toString());
                 boolean delete = db.deleteExpanse(name, year, month, day, position);
-                if(position <= db.day_count(name, year, month, day)) {
+                if(check - db.day_count(name, year, month, day) == 1) {
                     Toast.makeText(getApplicationContext(), "Deleted expanse", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(SubActivity.this, SubActivity.class);
                     intent.putExtra("year", year);

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/splash">
+
+    <TextView
+        android:id="@+id/LogoChar"
+        android:layout_width="match_parent"
+        android:layout_height="188dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="313dp"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:text="Account"
+        android:textColor="#e7f8ff"
+        android:textSize="60sp" />
+
+    <TextView
+        android:id="@+id/GamingChar"
+        android:layout_width="match_parent"
+        android:layout_height="181dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="-6dp"
+        android:layout_marginBottom="186dp"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:text="Book"
+        android:textColor="#e7f8ff"
+        android:textSize="60sp" />
+</RelativeLayout>

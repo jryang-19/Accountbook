@@ -131,11 +131,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnTouchL
                     (NotificationManager) CalendarActivity.this.getSystemService(CalendarActivity.this.NOTIFICATION_SERVICE);
 
             nm.notify(NOTIFICATION_SERVICE, 0, noti);
-        } else {
-            Toast.makeText(getApplicationContext(), "No limit setting", Toast.LENGTH_SHORT).show();
         }
-
-
 
         // ------- Ontouch Listener Define -> slide
 
